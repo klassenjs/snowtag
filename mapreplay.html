@@ -18,19 +18,16 @@
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js"></script>
 	<script type="text/javascript">
-			geotab.addin.mapreplay = function(api, state) {
-					var map;
+	geotab.addin.mapreplay = function(api, state) {
+			var map;
 
-					var vehicles;
+			var initializeMap = function () {
+					// Initialize the map container
 
-					var initializeMap = function () {
-							// Initialize the map container
-
-							map = new L.Map("mapreplay-map").on("load", function () {
-									setTimeout(function () {
-											map.invalidateSize();
-									}, 500);
-									document.getElementById("mapreplay-options").style.display = "block";
+					map = new L.Map("mapreplay-map").on("load", function () {
+							setTimeout(function () {
+									map.invalidateSize();
+							}, 500);
 							}).setView([45.436884, -93.711760], 10);
 
 							// Add the map tiles layer
@@ -41,42 +38,6 @@
 									attribution: "&copy; <a href=\"http://osm.org/copyright\">OpenStreetMap</a> contributors",
 									maxZoom: 18
 							}).addTo(map);
-					};
-
-					var getVehicles = function (finishedCallback) {
-							api.call("Get", {
-									typeName: "Device"
-							}, function (results) {
-									vehicles = results.map(function (vehicle) {
-											return {
-													name: vehicle.name,
-													id: vehicle.id
-											};
-									});
-									finishedCallback();
-							}, function (errorString) {
-									alert(errorString);
-							});
-					};
-
-					var populateVehicleSelect = function () {
-							var vehicleSelect = document.getElementById("mapreplay-options-vehicle");
-							vehicleSelect.appendChild((function () {
-									var defaultOption = document.createElement("option");
-									defaultOption.default = true;
-									defaultOption.selected = true;
-									defaultOption.value = "";
-									defaultOption.textContent = "Select a vehicle...";
-									return defaultOption;
-							})());
-							if (vehicles) {
-									vehicles.forEach(function (vehicle) {
-											var opt = document.createElement("option");
-											opt.value = vehicle.id;
-											opt.textContent = vehicle.name;
-											vehicleSelect.appendChild(opt);
-									});
-							}
 					};
 
 					return {
@@ -90,7 +51,7 @@
 									initializeMap();
 
 									// Must be called to let the app know that we've initialized the addon
-									getVehicles(callback);
+									callback();
 							},
 
 							/*
@@ -100,7 +61,6 @@
 							 * been modified since it was first initialized.
 							 */
 							focus: function() {
-									populateVehicleSelect();
 							},
 
 							/*
