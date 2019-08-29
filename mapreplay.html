@@ -9,7 +9,7 @@
 <body>
     <div id="mapreplay-map"></div>
 
-    <div id="mapreplay-options">
+    <div id="mapreplay-options" style="display: none;">
         <form class="pure-form pure-form-stacked">
             <fieldset>
                 <div class="pure-g">
@@ -44,6 +44,7 @@
 												id: 'mapbox.streets',
 												maxZoom: 18
 										}).addTo(map);
+								document.getElementById("mapreplay-options").style.display = "block";
 								};
 
             var getVehicles = function (finishedCallback) {
