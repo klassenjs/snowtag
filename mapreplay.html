@@ -9,7 +9,7 @@
 <body>
     <div id="mapreplay-map"></div>
 
-    <div id="mapreplay-options">
+    <div id="mapreplay-options" style="display: none;">
         <form class="pure-form pure-form-stacked">
             <fieldset>
                 <div class="pure-g">
@@ -33,6 +33,7 @@
 										setTimeout(function () {
 												map.invalidateSize();
 										}, 500);
+										document.getElementById("mapreplay-options").style.display = "block";
 									}).setView([44.94, -93.10], 13);
 
 										// Add the map tiles layer
@@ -44,7 +45,6 @@
 												id: 'mapbox.streets',
 												maxZoom: 18
 										}).addTo(map);
-
 								};
 
             var getVehicles = function (finishedCallback) {
