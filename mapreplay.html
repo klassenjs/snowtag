@@ -12,10 +12,20 @@
 </head>
 <body>
     <div id="mapreplay-map"></div>
+		<div id="mapreplay-options" style="display: none;">
+        <form class="pure-form pure-form-stacked">
+            <fieldset>
+                <div class="pure-g">
+                    <select id="mapreplay-options-vehicle" class="pure-u-1-1"></select>
+                </div>
+            </fieldset>
+        </form>
+    </div>
 
 	<script type="text/javascript">
 	geotab.addin.mapreplay = function(api, state) {
 			var map;
+			var vehicles;
 
 			var initializeMap = function () {
 					// Initialize the map container
@@ -37,6 +47,45 @@
 							}).addTo(map);
 					};
 
+          //Get snowtagging vehicles only
+					var getVehicles = function(finishedCallback) {
+						api.call('Get', {'typeName': 'Device',
+			               'search': {
+			                   'groups': [{'id': 'b278A'}]
+			               }
+									 }, function(results) {
+											 vehicles = results.map(function (vehicle) {
+												 return {
+													 name: vehicle.name,
+													 id: vehicle.id
+												 };
+											 });
+											 finishedCallback();
+										 }, function (errorString) {
+											     alert(errorString);
+										 });
+					};
+
+					var populateVehicleSelect = function () {
+							var vehicleSelect = document.getElementById("mapreplay-options-vehicle");
+							vehicleSelect.appendChild((function () {
+									var defaultOption = document.createElement("option");
+									defaultOption.default = true;
+									defaultOption.selected = true;
+									defaultOption.value = "";
+									defaultOption.textContent = "Select a vehicle...";
+									return defaultOption;
+							})());
+							if (vehicles) {
+									vehicles.forEach(function (vehicle) {
+											var opt = document.createElement("option");
+											opt.value = vehicle.id;
+											opt.textContent = vehicle.name;
+											vehicleSelect.appendChild(opt);
+									});
+							}
+					};
+
 					return {
 							/*
 							 * Page lifecycle method: initialize is called once when the addin first starts
@@ -48,7 +97,7 @@
 									initializeMap();
 
 									// Must be called to let the app know that we've initialized the addon
-									callback();
+									getVehicles(callback);
 							},
 
 							/*
@@ -58,6 +107,7 @@
 							 * been modified since it was first initialized.
 							 */
 							focus: function() {
+									populateVehicleSelect();
 							},
 
 							/*
