@@ -19,11 +19,9 @@
             </fieldset>
         </form>
     </div>
-
 	<script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
 	integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
 	crossorigin=""></script>
-
 	<script type="text/javascript">
 	geotab.addin.mapreplay = function(api, state) {
 			var map;
@@ -51,23 +49,38 @@
 					};
 
           //Get snowtagging vehicles only
-					var getVehicles = function(finishedCallback) {
-						api.call('Get', {'typeName': 'Device',
-			               'search': {
-			                   'groups': [{'id': 'b278A'}]
-			               }
-									 }, function(results) {
-											 vehicles = results.map(function (vehicle) {
-												 return {
-													 name: vehicle.name,
-													 id: vehicle.id
-												 };
-											 });
-											 finishedCallback();
-										 }, function (errorString) {
-											     alert(errorString);
-										 });
+					var getVehicles = function (finishedCallback) {
+							api.call("Get", {
+									typeName: "Device"
+							}, function (results) {
+									vehicles = results.map(function (vehicle) {
+											return {
+													name: vehicle.name,
+													id: vehicle.id
+											};
+									});
+									finishedCallback();
+							}, function (errorString) {
+									alert(errorString);
+							});
 					};
+					// var getVehicles = function(finishedCallback) {
+					// 	api.call('Get', {'typeName': 'Device',
+			    //            'search': {
+			    //                'groups': [{'id': 'b278A'}]
+			    //            }
+					// 				 }, function(results) {
+					// 						 vehicles = results.map(function (vehicle) {
+					// 							 return {
+					// 								 name: vehicle.name,
+					// 								 id: vehicle.id
+					// 							 };
+					// 						 });
+					// 						 finishedCallback();
+					// 					 }, function (errorString) {
+					// 						     alert(errorString);
+					// 					 });
+					// };
 
 					var populateVehicleSelect = function () {
 							var vehicleSelect = document.getElementById("mapreplay-options-vehicle");
