@@ -16,6 +16,7 @@
 	width: 300px;
 	border-radius: 2px;
 	box-shadow: 0 8px 10px 0px rgba(0,0,0,0.2);
+	display: block;
 }
 
 #mapreplay-options h1 {
