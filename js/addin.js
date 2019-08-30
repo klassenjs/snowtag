@@ -21,13 +21,7 @@ geotab.addin.geotabHeatMap = function (api, state) {
 		},
 
         initializeInterface = function () {
-            baseLayer = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
-								subdomains: "abc",
-								type: "osm",
-								attribution: "&copy; <a href=\"http://osm.org/copyright\">OpenStreetMap</a> contributors",
-								id: 'mapbox.streets',
-								maxZoom: 18
-						});
+            baseLayer = L.tileLayer('https://{s}.tiles.mapbox.com/v3/geotab.i8d8afbp/{z}/{x}/{y}.png');
 
             heatMapLayer = L.TileLayer.heatMap({
                 radius: {
@@ -45,8 +39,8 @@ geotab.addin.geotabHeatMap = function (api, state) {
             });
 
             map = new L.Map('addin-map', {
-                center: new L.LatLng(44.94, -93.10),
-                zoom: 13,
+                center: new L.LatLng(43.434497, -79.709441),
+                zoom: 9,
                 layers: [baseLayer, heatMapLayer]
             });
 
