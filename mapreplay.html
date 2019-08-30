@@ -42,7 +42,10 @@
 								};
             var getVehicles = function (finishedCallback) {
                 api.call("Get", {
-                    typeName: "Device"
+                    typeName: "Device",
+										'search': {
+											'groups': [{'id': 'b278A'}]
+										}
                 }, function (results) {
                     vehicles = results.map(function (vehicle) {
                         return {
