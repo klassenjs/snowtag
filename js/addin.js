@@ -24,7 +24,7 @@ geotab.addin.geotabHeatMap = function (api, state) {
             baseLayer = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
 								subdomains: "abc",
 								type: "osm",
-								attribution: "&copy; <a href=\"http://osm.org/copyright\">OpenStreetMap</a> contributors",
+								attribution: "&copy; <a href=\"https://osm.org/copyright\">OpenStreetMap</a> contributors",
 								id: 'mapbox.streets',
 								maxZoom: 18
 						};
