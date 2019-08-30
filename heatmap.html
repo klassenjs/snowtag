@@ -2,13 +2,13 @@
 <html>
 
 	<head>
-	
+
 		<title>Heatmap Addin (by Geotab)</title>
-		
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.5.1/leaflet.min.css" rel="stylesheet" />
+
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css" rel="stylesheet" />
         <link href="https://www.geotab.com/mygeotab/addin/heatmap/css/addin.css" rel="stylesheet" />
-		
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.5.1/leaflet-src.js"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js"></script>
         <script src="https://www.geotab.com/mygeotab/addin/heatmap/js/heatmap.js"></script>
         <script src="https://www.geotab.com/mygeotab/addin/heatmap/js/heatmap-leaflet.js"></script>
         <script src="https://www.geotab.com/mygeotab/addin/heatmap/js/QuadTree.js"></script>
@@ -17,57 +17,57 @@
 	</head>
 
 	<body>
-	
+
 		<div id="addin-container">
-		
+
 			<div id="addin-map"></div>
-		
+
 			<div id="addin-controls">
-			
-				<h3>Heatmap Addin <small>(by Geotab)</small></h3>
+
+				<h3>Snowtagging Heatmap</h3>
 				<p class="addin-header-paragraph">
 					This addin demonstrates how to create an addin to visualize your location history using a heat map.
 				</p>
-				
+
 				<h5>Instructions</h5>
 				<p class="addin-header-paragraph">
 					Select a vehicle and then select a date range to display where the vehicle has been.
 					Areas of the map colored which appear <i>hot</i> indicates that the vehicle has spent time at that location.
 				</p>
-				
+
 				<hr />
-				
+
 				<select id="addin-vehicles">
 					<option disabled="disabled">Select a vehicle</option>
 				</select>
-				
+
 				<h4>From</h4>
                 <input id="addin-from" type="datetime-local" />
-				
+
 				<br />
-				
+
 				<h4>To</h4>
 				<input id="addin-to" type="datetime-local" />
-				
+
 				<hr />
-				
+
 				<p>
-					To get started creating your own addins read the Geotab SDK document 
+					To get started creating your own addins read the Geotab SDK document
 					<a href="https://docs.google.com/document/pub?id=13gwbf2C94fGDBOVTD95nKdKm9KwgzaNQh2-XXEr5ppg&embedded=true" target="_blank">Developing addins</a>.
 				</p>
-				
+
 				<p>
 					<small>Last updated on January 9 2014</small>
 				</p>
-				
+
 				<div id="addin-error"></div>
-				
+
 				<div id="addin-loading">
 					<img src="https://www.geotab.com/mygeotab/addin/heatmap/images/loading.gif" alt="" />
 				</div>
-				
+
 			</div>
-			
+
 		</div>
 
 	</body>
