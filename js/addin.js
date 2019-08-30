@@ -27,7 +27,7 @@ geotab.addin.geotabHeatMap = function (api, state) {
 								attribution: "&copy; <a href=\"https://osm.org/copyright\">OpenStreetMap</a> contributors",
 								id: 'mapbox.streets',
 								maxZoom: 18
-						};
+						});
 
             heatMapLayer = L.TileLayer.heatMap({
                 radius: {
