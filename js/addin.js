@@ -45,7 +45,7 @@ geotab.addin.geotabHeatMap = function (api, state) {
             });
 
             map = new L.Map('addin-map', {
-                center: new L.LatLng(44.94, -93.30),
+                center: new L.LatLng(44.94, -93.20),
                 zoom: 13,
                 layers: [baseLayer, heatMapLayer]
             });
@@ -149,7 +149,7 @@ geotab.addin.geotabHeatMap = function (api, state) {
 	        api.call("Get", {
 	            typeName: "Device",
 							'search': {
-								'groups': [{'id': 'b278A'}]
+								'groups': [{'id': 'b27D5'}]
 							}
 	        }, function (result) {
 	            if (result && result.length > 0) {
