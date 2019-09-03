@@ -68,8 +68,7 @@ a.button:hover {
 }
 
 #addin-container {
-	height: 900px;
-	width: 900px;
+	height: 100%;
 }
 
 #addin-loading {

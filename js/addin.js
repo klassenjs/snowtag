@@ -149,7 +149,7 @@ geotab.addin.geotabHeatMap = function (api, state) {
 	        api.call("Get", {
 	            typeName: "Device",
 							'search': {
-								'groups': [{'id': 'b27D5'}]
+								'groups': [{'id': 'b2796'}]
 							}
 	        }, function (result) {
 	            if (result && result.length > 0) {
