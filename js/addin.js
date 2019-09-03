@@ -21,7 +21,13 @@ geotab.addin.geotabHeatMap = function (api, state) {
 		},
 
         initializeInterface = function () {
-            baseLayer = L.tileLayer('https://{s}.tiles.mapbox.com/v3/geotab.i8d8afbp/{z}/{x}/{y}.png');
+            baseLayer = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+								subdomains: "abc",
+								type: "osm",
+								attribution: "&copy; <a href=\"https://osm.org/copyright\">OpenStreetMap</a> contributors",
+								id: 'mapbox.streets',
+								maxZoom: 18
+						});
 
             heatMapLayer = L.TileLayer.heatMap({
                 radius: {
@@ -39,8 +45,8 @@ geotab.addin.geotabHeatMap = function (api, state) {
             });
 
             map = new L.Map('addin-map', {
-                center: new L.LatLng(43.434497, -79.709441),
-                zoom: 9,
+                center: new L.LatLng(44.94, -93.10),
+                zoom: 13,
                 layers: [baseLayer, heatMapLayer]
             });
 
@@ -84,18 +90,18 @@ geotab.addin.geotabHeatMap = function (api, state) {
 			var deviceId = vehicleSelect[vehicleSelect.selectedIndex].getAttribute("data-deviceid"),
 				fromValue = dateFromInput.value,
 				toValue = dateToInput.value;
-			
+
 			errorHandler("");
-			
+
 			if ((deviceId === null) || (fromValue === "") || (toValue === "")) {
 				return;
 			}
-			
+
 			toggleLoading(true);
-			
+
 			var dateFrom = new Date(fromValue).toISOString(),
 				dateTo = new Date(toValue).toISOString();
-			
+
 			api.call("Get", {
 				typeName: "LogRecord",
 				search: {
@@ -108,7 +114,7 @@ geotab.addin.geotabHeatMap = function (api, state) {
 			}, function (result) {
 				var coordinates = [];
 				var bounds = [];
-				
+
 				for (var i = 0; i < result.length; i++) {
 					if (result[i].latitude != 0 || result[i].longitude != 0) {
 						coordinates.push({
@@ -119,21 +125,21 @@ geotab.addin.geotabHeatMap = function (api, state) {
 						bounds.push(new L.LatLng(result[i].latitude, result[i].longitude));
 					}
 				}
-				
+
 				if (coordinates.length > 0) {
 					map.fitBounds(bounds);
 					heatMapLayer.setData(coordinates);
 				} else {
 					errorHandler("Not enough data to display");
 				}
-				
+
 				toggleLoading(false);
 			}, function (error) {
 				errorHandler(error);
 				toggleLoading(false);
 			});
 		};
-	
+
 	return {
 	    initialize: function (api, state, callback) {
 	        initializeInterface();
@@ -170,7 +176,7 @@ geotab.addin.geotabHeatMap = function (api, state) {
 	        }, 200);
 		},
 		blur: function() {
-		    
+
 		}
 	};
 };
