@@ -226,7 +226,7 @@ geotab.addin.geotabHeatMap = function (api, state) {
               search: {
               'groups': [{'id': 'b278A'}]
               }
-	        }, function (result) {
+	        }), function (result) {
 	            if (result && result.length > 0) {
 					result.sort(function (a, b) {
 						a = a.name.toLowerCase();
@@ -247,7 +247,7 @@ geotab.addin.geotabHeatMap = function (api, state) {
 	            }
 	        }, function (error) {
 	            errorHandler(error);
-	        });
+	        };
 
 	        setTimeout(function () {
 	            map.invalidateSize();
