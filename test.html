@@ -1,0 +1,202 @@
+<!-- Working base example
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Map Replay</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+    <div id="mapreplay-map"></div>
+
+    <div id="mapreplay-options" style="display: none;">
+        <form class="pure-form pure-form-stacked">
+            <fieldset>
+                <div class="pure-g">
+                    <select id="mapreplay-options-vehicle" class="pure-u-1-1"></select>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js"></script>
+    <script type="text/javascript">
+        geotab.addin.mapreplay = function(api, state) {
+            var map;
+            var vehicles;
+            var initializeMap = function () {
+                // Initialize the map container
+								map = new L.Map("mapreplay-map").on("load", function () {
+										setTimeout(function () {
+												map.invalidateSize();
+										}, 500);
+									}).setView([44.94, -93.10], 13);
+										// Add the map tiles layer
+										document.getElementById("mapreplay-options").style.display = "block";
+										L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+												subdomains: "abc",
+												type: "osm",
+												attribution: "&copy; <a href=\"https://osm.org/copyright\">OpenStreetMap</a> contributors",
+												id: 'mapbox.streets',
+												maxZoom: 18
+										}).addTo(map);
+								};
+            var getVehicles = function (finishedCallback) {
+                api.call("Get", {
+                    typeName: "Device"
+                }, function (results) {
+                    vehicles = results.map(function (vehicle) {
+                        return {
+                            name: vehicle.name,
+                            id: vehicle.id
+                        };
+                    });
+                    finishedCallback();
+                }, function (errorString) {
+                    alert(errorString);
+                });
+            };
+            var populateVehicleSelect = function () {
+                var vehicleSelect = document.getElementById("mapreplay-options-vehicle");
+                vehicleSelect.appendChild((function () {
+                    var defaultOption = document.createElement("option");
+                    defaultOption.default = true;
+                    defaultOption.selected = true;
+                    defaultOption.value = "";
+                    defaultOption.textContent = "Select a vehicle...";
+                    return defaultOption;
+                })());
+                if (vehicles) {
+                    vehicles.forEach(function (vehicle) {
+                        var opt = document.createElement("option");
+                        opt.value = vehicle.id;
+                        opt.textContent = vehicle.name;
+                        vehicleSelect.appendChild(opt);
+                    });
+                }
+            };
+            return {
+                /*
+                 * Page lifecycle method: initialize is called once when the addin first starts
+                 * Use this function to initialize the addin's state such as default values or
+                 * make API requests (Geotab or external) to ensure interface is ready for the user.
+                 */
+                initialize: function(api, state, callback) {
+                    // Initialize the map
+                    initializeMap();
+                    // Must be called to let the app know that we've initialized the addon
+                    getVehicles(callback);
+                },
+                /*
+                 * Page lifecycle method: focus is called when the page has finished initialize method
+                 * and again when a user leaves and returns to your addin that has already been initialized.
+                 * Use this function to refresh state such as vehicles, zones or exceptions which may have
+                 * been modified since it was first initialized.
+                 */
+                focus: function() {
+                    populateVehicleSelect();
+                },
+                /*
+                 * Page lifecycle method: blur is called when the user is leaving your addin.
+                 * Use this function to save state or commit changes to a datastore or release memory.
+                 */
+                blur: function() {
+                }
+            };
+        };
+    </script>
+</body>
+</html> -->
+
+
+
+
+
+<!-- Working Leaflet map example -->
+
+<!-- <!DOCTYPE html>
+<html>
+<head>
+  <title>Leaflet Quick Start Guide Example</title>
+  <meta charset="utf-8" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+  <div id="mapreplay-map"></div>
+  <div id="mapreplay-options" style="display: none;">
+      <form class="pure-form pure-form-stacked">
+          <fieldset>
+              <div class="pure-g">
+                  <select id="mapreplay-options-vehicle" class="pure-u-1-1"></select>
+              </div>
+          </fieldset>
+      </form>
+  </div>
+  <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+
+  <script>
+    var map = L.map('mapreplay-map').setView([44.94, -93.10], 13);
+    										document.getElementById("mapreplay-options").style.display = "block";
+    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+        subdomains: "abc",
+        type: "osm",
+        attribution: "&copy; <a href=\"http://osm.org/copyright\">OpenStreetMap</a> contributors",
+        id: 'mapbox.streets',
+        maxZoom: 18
+    }).addTo(map);
+
+  </script>
+</body>
+</html> -->
+
+
+
+// var snowtag = api.call('Get', {'typeName': 'Device',
+//               'search': {
+//                   'groups': [{'id': 'b27D5'}]
+//               }});
+
+
+// api.call("Get", {
+//     typeName: "LogRecord",
+//     "resultsLimit": 10,
+//     search: {
+//         'groups': [{'id': 'b27D5'}]
+//     },
+// });
+
+// api.call('Get', {'typeName': 'Device',
+//               'search': {
+//                   'name': "TEST UNIT #1"
+//               }});
+
+
+
+
+// api.call('Get', {'typeName': 'Rule',
+//               'groups': [{'id': "b27D5"
+//               }]});
+
+
+api.call("Get", {
+    typeName: "ExceptionEvent",
+    resultsLimit: 450,
+    search:
+    {
+            fromDate: "2019-04-01T00:00:00Z",
+            toDate: "2019-08-02T23:59:59Z",
+            ruleSearch:
+            {
+                id: "a1wrQ3PBsTUuNVZ7cqjCjHA"
+            },
+            search:
+            {
+             groups: [{'id': 'b27D5'}]
+             }
+    }
+});

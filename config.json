@@ -1,21 +1,16 @@
 {
-  "name": "Heat Map",
-  "supportEmail": "support@geotab.com",
-  "version": "1.0.0",
-  "items": [{
-    
-    "url": "heatmap.html",
-    "path": "ActivityLink/",
-    "menuName": {
-      "en": "Heat Map"
-    },
-    
-    "icon": "images/icon.svg"
-  }],
-  "dev": {
-    "root": "heatmap",
-    "dist": {
-      "host": "https://cdn.jsdelivr.net/gh/Geotab/sdk-addin-samples@master/addin-heatmap/dist/"
-    }
-  }
+	"name": "Snow Tagging",
+	"supportEmail": "nicole.helgeson@ci.stpaul.mn.us",
+	"version": "1.0",
+	"items": [
+		{
+			"icon": "icon.svg",
+			"url": "https://nikkypo.github.io/snowtag/mapreplay.html",
+			"path": "sdkAddinsLink/",
+			"menuName": {
+				"en": "Map Replay"
+			}
+		}
+	],
+	"isSigned": false
 }
