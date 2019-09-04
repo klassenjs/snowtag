@@ -82,8 +82,10 @@
  * @returns {{initialize: Function, focus: Function, blur: Function}}
  */
 geotab.addin.heatmap = () => {
+// no paramaters in arrow function
   'use strict';
 
+// Let keywords are block scoped, not function scoped like var.
   let api;
 
   let map;
@@ -96,7 +98,7 @@ geotab.addin.heatmap = () => {
   let elLoading;
 
   /**
-   * Display error message
+   * Display error message. Gets errorHandler message
    * @param {string} message - The error message.
    */
   let errorHandler = message => {
@@ -135,7 +137,11 @@ geotab.addin.heatmap = () => {
 
     let dateFrom = new Date(fromValue).toISOString();
     let dateTo = new Date(toValue).toISOString();
-
+    let deviceId = api.call('Get', {'typeName': 'Device',
+                  'search': {
+                      'groups': [{'id': 'b278A'}]
+                  }});
+                  
     api.call('Get', {
       typeName: 'LogRecord',
       resultsLimit: 10000,
@@ -279,7 +285,7 @@ geotab.addin.heatmap = () => {
       }
 
     },
-    focus(freshApi) {
+    focus(freshApi, freshState) {
       api = freshApi;
 
       while (elVehicleSelect.firstChild) {
@@ -290,7 +296,7 @@ geotab.addin.heatmap = () => {
         typeName: 'Device',
         search: {
           fromDate: new Date().toISOString(),
-          groups: [{'id': 'b278A'}]
+          groups: freshState.getGroupFilter()
         }
       }, vehicles => {
         if (!vehicles || vehicles.length < 0) {
