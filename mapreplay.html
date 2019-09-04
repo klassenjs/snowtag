@@ -46,7 +46,7 @@
             See a heat map of historical snowtagging locations.
           </p>
 
-          <h3>Instructions</h3>
+          <h3>Search Instructions</h3>
           <p>
             Select a vehicle and then select a date range to display where the vehicle has been. Areas of the map colored which appear
             <i>hot</i> indicates that the vehicle has spent time at that location.
@@ -222,7 +222,9 @@ geotab.addin.geotabHeatMap = function (api, state) {
 	    },
 	    focus: function () {
 	        api.call("Get", {
-	            typeName: "Device"
+	            typeName: "Device",
+      search: {
+        'groups': [{'id': 'b278A'}]
 	        }, function (result) {
 	            if (result && result.length > 0) {
 					result.sort(function (a, b) {
