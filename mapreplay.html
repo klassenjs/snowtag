@@ -137,17 +137,17 @@ geotab.addin.heatmap = () => {
 
     let dateFrom = new Date(fromValue).toISOString();
     let dateTo = new Date(toValue).toISOString();
-    let deviceId = api.call('Get', {'typeName': 'Device',
+    let device = api.call('Get', {'typeName': 'Device',
                   'search': {
                       'groups': [{'id': 'b278A'}]
                   }});
-                  
+
     api.call('Get', {
       typeName: 'LogRecord',
       resultsLimit: 10000,
       search: {
         'deviceSearch': {
-          id: deviceId
+          id: device
         },
         fromDate: dateFrom,
         toDate: dateTo
