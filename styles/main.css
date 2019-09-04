@@ -1,0 +1,44 @@
+#heatmap-map {
+    height: calc(100% + 40px);
+}
+
+.cssGrid,
+.cssGrid>div {
+    height: 100%;
+}
+
+.checkmateFormEditField {
+    width: calc(100% - 1em);
+    max-width: 100%;
+}
+
+select.checkmateFormEditField {
+    width: 100%;
+}
+
+label {
+    padding-top: 1em;
+    display: block;
+    padding-bottom: 0.5em;
+}
+
+#controls {
+    height: 100%;
+    padding: 20px;
+    background-color: #e5f2fa;
+    border-right: 1px solid #ddd;
+}
+
+#loading {
+    transform: scale(0.5);
+}
+
+#loading>div {
+    background: #2c7ab1;
+    ;
+}
+
+#error {
+    margin-top: 20px;
+    color: #cc0000;
+}
