@@ -45,7 +45,7 @@ geotab.addin.geotabHeatMap = function (api, state) {
             });
 
             map = new L.Map('addin-map', {
-                center: new L.LatLng(44.94, -93.10),
+                center: new L.LatLng(44.94, -93.15),
                 zoom: 13,
                 layers: [baseLayer, heatMapLayer]
             });

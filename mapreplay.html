@@ -4,62 +4,22 @@
     <title>Map Replay</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js"></script>
-    <script src="js/heatmap.js"></script>
-    <script src="js/heatmap-leaflet.js"></script>
-    <script src="js/QuadTree.js"></script>
-    <script src="js/addin.js"></script>
 </head>
 <body>
-  <div id="addin-container">
+    <div id="mapreplay-map"></div>
 
-    <div id="addin-map"></div>
-
-    <div id="addin-controls">
-
-      <h3>Snowtagging Heatmap</h3>
-      <p class="addin-header-paragraph">
-        Visualize snowtagging location history.
-      </p>
-
-      <h5>Instructions</h5>
-      <p class="addin-header-paragraph">
-        Select a vehicle and then select a date range to display where the vehicle has been.
-        Areas of the map colored which appear <i>hot</i> indicates that the vehicle has spent time at that location.
-      </p>
-
-      <hr />
-
-      <select id="addin-vehicles">
-        <option disabled="disabled">Select a vehicle</option>
-      </select>
-
-      <h4>From</h4>
-              <input id="addin-from" type="datetime-local" />
-
-      <br />
-
-      <h4>To</h4>
-      <input id="addin-to" type="datetime-local" />
-
-      <hr />
-
-      <p>
-        <small>Last updated on September 3 2019</small>
-      </p>
-
-      <div id="addin-error"></div>
-
-      <div id="addin-loading">
-        <img src="https://www.geotab.com/mygeotab/addin/heatmap/images/loading.gif" alt="" />
-      </div>
-
+    <div id="mapreplay-options" style="display: none;">
+        <form class="pure-form pure-form-stacked">
+            <fieldset>
+                <div class="pure-g">
+                    <select id="mapreplay-options-vehicle" class="pure-u-1-1"></select>
+                </div>
+            </fieldset>
+        </form>
     </div>
 
-  </div>
-
-    <!-- <script type="text/javascript">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js"></script>
+    <script type="text/javascript">
         geotab.addin.mapreplay = function(api, state) {
             var map;
             var vehicles;
@@ -146,6 +106,6 @@
                 }
             };
         };
-    </script> -->
+    </script>
 </body>
 </html>
