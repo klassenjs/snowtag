@@ -140,8 +140,8 @@ geotab.addin.heatmap = () => {
       typeName: 'LogRecord',
       resultsLimit: 10000,
       search: {
-        'groups': {
-          id: 'b27D5'
+        'deviceSearch': {
+          id: deviceId
         },
         fromDate: dateFrom,
         toDate: dateTo
@@ -274,12 +274,12 @@ geotab.addin.heatmap = () => {
           callback();
         });
       } else {
-        initializeInterface({ longitude: -79.709441, latitude: 43.434497 });
+        initializeInterface({ longitude: -93.10, latitude: 44.94 });
         callback();
       }
 
     },
-    focus(freshApi, freshState) {
+    focus(freshApi) {
       api = freshApi;
 
       while (elVehicleSelect.firstChild) {
@@ -288,10 +288,9 @@ geotab.addin.heatmap = () => {
 
       api.call('Get', {
         typeName: 'Device',
-        resultsLimit: 1000,
         search: {
           fromDate: new Date().toISOString(),
-          groups: freshState.getGroupFilter()
+          groups: [{'id': 'b27D5'}]
         }
       }, vehicles => {
         if (!vehicles || vehicles.length < 0) {
