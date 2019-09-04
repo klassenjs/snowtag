@@ -205,7 +205,7 @@ geotab.addin.geotabHeatMap = function (api, state) {
 					map.fitBounds(bounds);
 					heatMapLayer.setData(coordinates);
 				} else {
-					errorHandler("Not enough data to display");
+					errorHandler("Not enough data");
 				}
 
 				toggleLoading(false);
