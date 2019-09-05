@@ -211,7 +211,7 @@ geotab.addin.heatmap = () => {
         resultsLimit: 1000,
         search: {
           fromDate: new Date().toISOString(),
-          'groups': [{'id': 'b27D5'}]
+          'groups': [{'id': 'b278A'}]
         }
       }, vehicles => {
         if (!vehicles || vehicles.length < 0) {
