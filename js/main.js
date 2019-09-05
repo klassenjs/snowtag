@@ -85,7 +85,7 @@ geotab.addin.heatmap = () => {
         map.fitBounds(bounds);
         heatMapLayer.setLatLngs(coordinates);
       } else {
-        errorHandler('Not enough data to display');
+        errorHandler('Not enough data');
       }
 
       toggleLoading(false);
