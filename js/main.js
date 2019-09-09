@@ -126,13 +126,13 @@ function logRecord(exception) {
                             ", (coordinates: " + LogRecord[0].latitude + ", " + LogRecord[0].longitude +
                             ") and triggered the " + Rule[0].name + " rule");
                         });
+                        console.log("this is" + LogRecord[0].latitude)
+                        console.log("this is" + LogRecord[0].longitude)
                     }
                 );
         });
     });
 }
-console.log("this is" + LogRecord[0].latitude)
-console.log("this is" + LogRecord[0].longitude)
 
     api.call('Get', {
       typeName: 'LogRecord',
