@@ -60,34 +60,67 @@ console.log(7);
 console.log(deviceId);
 
 
-api.call("Get", {
-    typeName: "ExceptionEvent",
-    resultsLimit: 10,
-    search: {
-        deviceSearch: {
-            id: "b2B"
-        },
-        ruleSearch: {
-            id: "a1wrQ3PBsTUuNVZ7cqjCjHA",
-            includeZoneStopRules: false
-        },
-        fromDate: "2019-02-06T18:59:34.000Z",
-        toDate: "2019-05-07T18:59:58.000Z"
-  }
-}, function(results) {
-  console.log(results);
-  api.call('Get', {
-    typeName: 'LogRecord',
-    resultsLimit: 10,
-    search: {
-      deviceSearch: {
-        id: results.id
-      },
-      fromDate: results.fromDate,
-      toDate: results.toDate
-      console.log(results.fromDate)
-}});
-});
+ function devices(vehicles){
+ api.call("Get", {
+        "typeName": "ExceptionEvent",
+        "search": {
+            "deviceSearch": {
+                "id": vehicles.deviceId
+            },
+            "ruleSearch": {
+                "id": "a1wrQ3PBsTUuNVZ7cqjCjHA",
+                "includeZoneStopRules": false
+            },
+            "fromDate": "2019-05-06T18:59:34.000Z",
+            "toDate": "2019-05-07T18:59:58.000Z"
+      }
+    }, function(exception) {
+        for (var i = 0; i < exception.length; i++){
+            logRecord(exception[i]);
+        }
+    }
+    );}
+
+function logRecord(exception) {
+    api.call("Get", {
+        "typeName": "LogRecord",
+        "search": {
+            "fromDate": exception.activeFrom,
+            "toDate": exception.activeTo,
+            "deviceSearch": {
+                "id": exception.device.id
+            }
+        }
+    }, function(LogRecord) {
+        api.call("GetAddresses", {
+            "coordinates": [{
+                "x": LogRecord[0].longitude,
+                "y": LogRecord[0].latitude
+            }],
+            "movingAddreses": false,
+            "hosAddresses": false
+        }, function(Address) {
+            api.call("Get", {
+                "typeName": "Device",
+                "search": {
+                    "id": exception.device.id
+                }
+            }, function(Device) {
+                        api.call("Get", {
+                            "typeName": "Rule",
+                            "search": {
+                                "id": exception.rule.id
+                            }
+                        }, function(Rule) {
+                            console.log(Device[0].name + " was at : " + Address[0].formattedAddress +
+                            ", (coordinates: " + LogRecord[0].latitude + ", " + LogRecord[0].longitude +
+                            ") and triggered the " + Rule[0].name + " rule");
+                        });
+                    }
+                );
+        });
+    });
+}
 
     api.call('Get', {
       typeName: 'LogRecord',
