@@ -55,8 +55,31 @@ console.log(1);
 
     let dateFrom = new Date(fromValue).toISOString();
     let dateTo = new Date(toValue).toISOString();
+
 console.log(7);
 console.log(deviceId);
+
+
+api.call("Get", {
+        "typeName": "ExceptionEvent",
+        resultsLimit: 1000,
+        "search": {
+            "deviceSearch": {
+                "id": "b2B"
+            },
+            "ruleSearch": {
+                "id": "a1wrQ3PBsTUuNVZ7cqjCjHA",
+                "includeZoneStopRules": false
+            },
+            "fromDate": "2019-02-06T18:59:34.000Z",
+            "toDate": "2019-05-07T18:59:58.000Z"
+      }
+    }, function(exception) {
+        for (var i = 0; i < exception.length; i++){
+            console.log(exception[i]);
+        }
+    }
+    );
 
     api.call('Get', {
       typeName: 'LogRecord',
