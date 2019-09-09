@@ -72,8 +72,8 @@ geotab.addin.heatmap = () => {
                 toDate: dateTo
           }
         }, function(exception) {
-            for (var i = 0; i < exception.length; i++){
-                logRecord(exception[i]);
+            for (var x = 0; x < exception.length; x++){
+                logRecord(exception[x]);
             }
         }
         );
