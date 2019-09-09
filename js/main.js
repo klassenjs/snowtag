@@ -14,7 +14,7 @@ geotab.addin.heatmap = () => {
   let elDateToInput;
   let elError;
   let elLoading;
-console.log(4);
+console.log(1);
   /**
    * Display error message
    * @param {string} message - The error message.
@@ -217,6 +217,7 @@ console.log(4);
           return;
         }
 console.log(6);
+console.log(vehicles);
         vehicles.sort(sortByName);
 
         vehicles.forEach(vehicle => {
@@ -224,6 +225,7 @@ console.log(6);
           option.text = vehicle.name;
           option.value = vehicle.id;
           elVehicleSelect.add(option);
+          console.log(elVehicleSelect);
         });
       }, errorHandler);
 
