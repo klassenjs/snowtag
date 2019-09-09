@@ -129,9 +129,9 @@ function logRecord(exception) {
                     }
                 );
         });
+        console.log("this is" + LogRecord[0].latitude)
+        console.log("this is" + LogRecord[0].longitude)
     });
-    console.log("this is" + LogRecord[0].latitude)
-    console.log("this is" + LogRecord[0].longitude)
 }
 
     api.call('Get', {
