@@ -56,7 +56,7 @@ console.log(1);
     let dateFrom = new Date(fromValue).toISOString();
     let dateTo = new Date(toValue).toISOString();
 console.log(7);
-
+console.log(deviceId);
     api.call('Get', {
       typeName: 'LogRecord',
       resultsLimit: 10000,
@@ -217,7 +217,6 @@ console.log(4);
           return;
         }
 console.log(6);
-console.log(vehicles);
         vehicles.sort(sortByName);
 
         vehicles.forEach(vehicle => {
@@ -225,7 +224,6 @@ console.log(vehicles);
           option.text = vehicle.name;
           option.value = vehicle.id;
           elVehicleSelect.add(option);
-          console.log(elVehicleSelect);
         });
       }, errorHandler);
 
