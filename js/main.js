@@ -40,7 +40,7 @@ console.log(1);
   /**
    * Displays the heatmap of a vehicle location history
    */
-  let displayHeatMap = () => {
+  let displayHeatMap = function () {
     let deviceId = elVehicleSelect.value;
     let fromValue = elDateFromInput.value;
     let toValue = elDateToInput.value;
@@ -60,7 +60,7 @@ console.log(deviceId);
 
     api.call('Get', {
       typeName: 'LogRecord',
-      resultsLimit: 100,
+      resultsLimit: 1000,
       search: {
         deviceSearch: {
           id: deviceId
@@ -68,7 +68,7 @@ console.log(deviceId);
         fromDate: dateFrom,
         toDate: dateTo
       }
-    }, logRecords => {
+    }, function (logRecords) {
       let coordinates = [];
       let bounds = [];
 
@@ -91,7 +91,7 @@ console.log(deviceId);
       }
 
       toggleLoading(false);
-    }, error => {
+    }, function (error) {
       errorHandler(error);
       toggleLoading(false);
     });
