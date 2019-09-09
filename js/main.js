@@ -88,18 +88,18 @@ geotab.addin.heatmap = () => {
             id: exception.device.id
              }
          }
-    }, logRecord => {
+    }, logRecords => {
       let coordinates = [];
       let bounds = [];
 
-      for (let i = 0; i < logRecord.length; i++) {
-        if (logRecord[i].latitude !== 0 || logRecord[i].longitude !== 0) {
+      for (let i = 0; i < logRecords.length; i++) {
+        if (logRecords[i].latitude !== 0 || logRecords[i].longitude !== 0) {
           coordinates.push({
-            lat: logRecord[i].latitude,
-            lon: logRecord[i].longitude,
+            lat: logRecords[i].latitude,
+            lon: logRecords[i].longitude,
             value: 1
           });
-          bounds.push(new L.LatLng(logRecord[i].latitude, logRecord[i].longitude));
+          bounds.push(new L.LatLng(logRecords[i].latitude, logRecords[i].longitude));
         }
       }
 
