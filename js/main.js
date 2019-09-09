@@ -83,10 +83,10 @@ function logRecord(exception){
       resultsLimit: 100,
       search: {
         deviceSearch: {
-          id: deviceId
+          id: exception.deviceId
         },
-        fromDate: dateFrom,
-        toDate: dateTo
+        fromDate: exception.dateFrom,
+        toDate: exception.dateTo
       }
     }, logRecords => {
       let coordinates = [];
