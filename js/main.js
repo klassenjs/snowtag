@@ -62,8 +62,9 @@ console.log(deviceId);
   api.call('Get', {
     typeName: 'Device',
     search: {
-      fromDate: new Date().toISOString(),
-      'groups': [{'id': 'b27D5'}]
+      fromDate: dateFrom,
+      toDate: dateTo,
+      groups: [{'id': 'b27D5'}]
     }
   }, function(vehicles) {
         for (var i = 0; i < vehicles.length; i++){
@@ -81,8 +82,8 @@ console.log(deviceId);
                 "id": "a1wrQ3PBsTUuNVZ7cqjCjHA",
                 "includeZoneStopRules": false
             },
-            "fromDate": "2019-05-06T18:59:34.000Z",
-            "toDate": "2019-05-07T18:59:58.000Z"
+            "fromDate": vehicles.dateFrom,
+            "toDate": vehicles.dateTo
       }
     }, function(exception) {
         for (var i = 0; i < exception.length; i++){
@@ -129,8 +130,8 @@ function logRecord(exception) {
                     }
                 );
         });
-        console.log("this is" + LogRecord[0].latitude)
-        console.log("this is" + LogRecord[0].longitude)
+        console.log("this is " + LogRecord[0].latitude)
+        console.log("this is " + LogRecord[0].longitude)
     });
 }
 
