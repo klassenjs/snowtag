@@ -56,31 +56,51 @@ geotab.addin.heatmap = () => {
     let dateFrom = new Date(fromValue).toISOString();
     let dateTo = new Date(toValue).toISOString();
 
-    api.call('Get', {
-      typeName: 'ExceptionEvent',
-      search: {
-        deviceSearch: {
-          id: deviceId
-        },
-        ruleSearch: {
-        id: "a1wrQ3PBsTUuNVZ7cqjCjHA",
-        includeZoneStopRules: false
-        },
-        fromDate: dateFrom,
-        toDate: dateTo
-      }
-    }, logRecords => {
+
+
+    api.call("Get", {
+            typeName: "ExceptionEvent",
+            search: {
+                deviceSearch: {
+                    id: deviceId
+                },
+                ruleSearch: {
+                    id: "a1wrQ3PBsTUuNVZ7cqjCjHA",
+                    includeZoneStopRules: false
+                },
+                fromDate: dateFrom,
+                toDate: dateTo
+          }
+        }, function(exception) {
+            for (var i = 0; i < exception.length; i++){
+                logRecord(exception[i]);
+            }
+        }
+        );
+
+    function logRecord(exception) {
+      api.call('Get', {
+         typeName: 'LogRecord',
+         search: {
+            fromDate: exception.activeFrom,
+            toDate: exception.activeTo,
+            deviceSearch: {
+            id: exception.device.id
+             }
+         }
+        }
+    }, logRecord => {
       let coordinates = [];
       let bounds = [];
 
-      for (let i = 0; i < logRecords.length; i++) {
-        if (logRecords[i].latitude !== 0 || logRecords[i].longitude !== 0) {
+      for (let i = 0; i < logRecord.length; i++) {
+        if (logRecord[i].latitude !== 0 || logRecord[i].longitude !== 0) {
           coordinates.push({
-            lat: logRecords[i].latitude,
-            lon: logRecords[i].longitude,
+            lat: logRecord[i].latitude,
+            lon: logRecord[i].longitude,
             value: 1
           });
-          bounds.push(new L.LatLng(logRecords[i].latitude, logRecords[i].longitude));
+          bounds.push(new L.LatLng(logRecord[i].latitude, logRecord[i].longitude));
         }
       }
 
