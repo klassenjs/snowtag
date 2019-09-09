@@ -57,11 +57,14 @@ geotab.addin.heatmap = () => {
     let dateTo = new Date(toValue).toISOString();
 
     api.call('Get', {
-      typeName: 'LogRecord',
-      resultsLimit: 10000,
+      typeName: 'ExceptionEvent',
       search: {
         deviceSearch: {
           id: deviceId
+        },
+        ruleSearch: {
+        id: "a1wrQ3PBsTUuNVZ7cqjCjHA",
+        includeZoneStopRules: false
         },
         fromDate: dateFrom,
         toDate: dateTo
@@ -194,7 +197,7 @@ geotab.addin.heatmap = () => {
           callback();
         });
       } else {
-        initializeInterface({ longitude: -79.709441, latitude: 43.434497 });
+        initializeInterface({ longitude: -93.10, latitude: 44.94});
         callback();
       }
 
