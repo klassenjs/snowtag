@@ -14,7 +14,7 @@ geotab.addin.heatmap = () => {
   let elDateToInput;
   let elError;
   let elLoading;
-console.log(6);
+console.log(4);
   /**
    * Display error message
    * @param {string} message - The error message.
@@ -55,7 +55,7 @@ console.log(6);
 
     let dateFrom = new Date(fromValue).toISOString();
     let dateTo = new Date(toValue).toISOString();
-console.log(5);
+console.log(7);
 
     api.call('Get', {
       typeName: 'LogRecord',
@@ -108,7 +108,7 @@ console.log(5);
     });
 
     L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/streets-v10/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZ2VvdGFiIiwiYSI6ImNpd2NlaW02MjAxc28yeW9idTR3dmRxdTMifQ.ZH0koA2g2YMMBOcx6EYbwQ').addTo(map);
-console.log(4);
+console.log(3);
     heatMapLayer = L.heatLayer({
       radius: {
         value: 24,
@@ -164,7 +164,7 @@ console.log(4);
       displayHeatMap();
     });
   };
-console.log(3);
+console.log(2);
   /**
    * Sort named entities
    * @param {object} a - The left comparison named entity
@@ -202,11 +202,10 @@ console.log(3);
     },
     focus(freshApi, freshState) {
       api = freshApi;
-console.log(1);
       while (elVehicleSelect.firstChild) {
         elVehicleSelect.removeChild(elVehicleSelect.firstChild);
       }
-
+console.log(4);
       api.call('Get', {
         typeName: 'Device',
         search: {
@@ -217,7 +216,7 @@ console.log(1);
         if (!vehicles || vehicles.length < 0) {
           return;
         }
-console.log(2);
+console.log(6);
         vehicles.sort(sortByName);
 
         vehicles.forEach(vehicle => {
@@ -227,7 +226,9 @@ console.log(2);
           elVehicleSelect.add(option);
         });
       }, errorHandler);
-console.log(7);
+
+
+console.log(5);
       setTimeout(() => {
         map.invalidateSize();
       }, 200);
