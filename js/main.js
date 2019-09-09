@@ -63,6 +63,7 @@ api.call("Get", {
         search: {
             deviceSearch: {
                 id: deviceId
+                console.log(deviceId);
             },
             ruleSearch: {
                 "id": "a1wrQ3PBsTUuNVZ7cqjCjHA",
