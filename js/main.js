@@ -59,7 +59,17 @@ console.log(1);
 console.log(7);
 console.log(deviceId);
 
-
+  api.call('Get', {
+    typeName: 'Device',
+    search: {
+      fromDate: new Date().toISOString(),
+      'groups': [{'id': 'b27D5'}]
+    }
+  }, function(vehicles) {
+        for (var i = 0; i < vehicles.length; i++){
+            devices(vehicles[i]);
+    }
+  });
  function devices(vehicles){
  api.call("Get", {
         "typeName": "ExceptionEvent",
