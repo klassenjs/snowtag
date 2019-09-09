@@ -58,36 +58,15 @@ console.log(1);
 console.log(7);
 console.log(deviceId);
 
-api.call("Get", {
-        typeName: "ExceptionEvent",
-        search: {
-            deviceSearch: {
-                id: deviceId
-                console.log(deviceId);
-            },
-            ruleSearch: {
-                "id": "a1wrQ3PBsTUuNVZ7cqjCjHA",
-                "includeZoneStopRules": false
-            },
-            fromDate: dateFrom,
-            toDate: dateTo
-      }
-    }, function(exception) {
-        for (var i = 0; i < exception.length; i++){
-            logRecord(exception[i]);
-        }
-    });
-
-function logRecord(exception){
     api.call('Get', {
       typeName: 'LogRecord',
       resultsLimit: 100,
       search: {
         deviceSearch: {
-          id: exception.deviceId
+          id: deviceId
         },
-        fromDate: exception.dateFrom,
-        toDate: exception.dateTo
+        fromDate: dateFrom,
+        toDate: dateTo
       }
     }, logRecords => {
       let coordinates = [];
@@ -115,7 +94,7 @@ function logRecord(exception){
     }, error => {
       errorHandler(error);
       toggleLoading(false);
-    });}
+    });
   };
 
   /**
