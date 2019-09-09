@@ -57,37 +57,16 @@ geotab.addin.heatmap = () => {
     let dateTo = new Date(toValue).toISOString();
 
 
-
-    api.call("Get", {
-            typeName: "ExceptionEvent",
-            search: {
-                deviceSearch: {
-                    id: deviceId
-                },
-                ruleSearch: {
-                    id: "a1wrQ3PBsTUuNVZ7cqjCjHA",
-                    includeZoneStopRules: false
-                },
-                fromDate: dateFrom,
-                toDate: dateTo
-          }
-        }, function(exception) {
-            for (var x = 0; x < exception.length; x++){
-                logRecord(exception[x]);
-            }
-        }
-        );
-
-    function logRecord(exception) {
-      api.call('Get', {
-         typeName: 'LogRecord',
-         search: {
-            fromDate: exception.activeFrom,
-            toDate: exception.activeTo,
-            deviceSearch: {
-            id: exception.device.id
-             }
-         }
+    api.call('Get', {
+      typeName: 'LogRecord',
+      resultsLimit: 10000,
+      search: {
+        deviceSearch: {
+          id: deviceId
+        },
+        fromDate: dateFrom,
+        toDate: dateTo
+      }
     }, logRecords => {
       let coordinates = [];
       let bounds = [];
