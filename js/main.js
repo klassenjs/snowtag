@@ -58,8 +58,26 @@ console.log(1);
 console.log(7);
 console.log(deviceId);
 
+api.call("Get", {
+        typeName: "ExceptionEvent",
+        search: {
+            deviceSearch: {
+                id: deviceId
+            },
+            ruleSearch: {
+                "id": "a1wrQ3PBsTUuNVZ7cqjCjHA",
+                "includeZoneStopRules": false
+            },
+            fromDate: dateFrom,
+            toDate: dateTo
+      }
+    }, function(exception) {
+        for (var i = 0; i < exception.length; i++){
+            logRecord(exception[i]);
+        }
+    });
 
-    function logRecord(deviceId, dateFrom, dateTo) {
+function logRecord(exception){
     api.call('Get', {
       typeName: 'LogRecord',
       resultsLimit: 100,
@@ -96,8 +114,8 @@ console.log(deviceId);
     }, error => {
       errorHandler(error);
       toggleLoading(false);
-    });
-  }};
+    });}
+  };
 
   /**
    * Intialize the user interface
