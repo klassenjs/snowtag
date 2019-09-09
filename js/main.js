@@ -64,7 +64,7 @@ console.log(deviceId);
     search: {
       fromDate: dateFrom,
       toDate: dateTo,
-      groups: [{'id': 'b27D5'}]
+      id: deviceId
     }
   }, function(vehicles) {
         for (var i = 0; i < vehicles.length; i++){
@@ -76,7 +76,7 @@ console.log(deviceId);
         "typeName": "ExceptionEvent",
         "search": {
             "deviceSearch": {
-                "id": vehicles.deviceId
+                "id": vehicles.id
             },
             "ruleSearch": {
                 "id": "a1wrQ3PBsTUuNVZ7cqjCjHA",
