@@ -88,7 +88,6 @@ geotab.addin.heatmap = () => {
             id: exception.device.id
              }
          }
-        }
     }, logRecord => {
       let coordinates = [];
       let bounds = [];
