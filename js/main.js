@@ -14,7 +14,7 @@ geotab.addin.heatmap = () => {
   let elDateToInput;
   let elError;
   let elLoading;
-
+console.log(6);
   /**
    * Display error message
    * @param {string} message - The error message.
@@ -55,7 +55,7 @@ geotab.addin.heatmap = () => {
 
     let dateFrom = new Date(fromValue).toISOString();
     let dateTo = new Date(toValue).toISOString();
-
+console.log(5);
 
     api.call('Get', {
       typeName: 'LogRecord',
@@ -108,7 +108,7 @@ geotab.addin.heatmap = () => {
     });
 
     L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/streets-v10/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZ2VvdGFiIiwiYSI6ImNpd2NlaW02MjAxc28yeW9idTR3dmRxdTMifQ.ZH0koA2g2YMMBOcx6EYbwQ').addTo(map);
-
+console.log(4);
     heatMapLayer = L.heatLayer({
       radius: {
         value: 24,
@@ -164,7 +164,7 @@ geotab.addin.heatmap = () => {
       displayHeatMap();
     });
   };
-
+console.log(3);
   /**
    * Sort named entities
    * @param {object} a - The left comparison named entity
@@ -202,14 +202,13 @@ geotab.addin.heatmap = () => {
     },
     focus(freshApi, freshState) {
       api = freshApi;
-
+console.log(1);
       while (elVehicleSelect.firstChild) {
         elVehicleSelect.removeChild(elVehicleSelect.firstChild);
       }
 
       api.call('Get', {
         typeName: 'Device',
-        resultsLimit: 1000,
         search: {
           fromDate: new Date().toISOString(),
           'groups': [{'id': 'b27D5'}]
@@ -218,7 +217,7 @@ geotab.addin.heatmap = () => {
         if (!vehicles || vehicles.length < 0) {
           return;
         }
-
+console.log(2);
         vehicles.sort(sortByName);
 
         vehicles.forEach(vehicle => {
@@ -228,7 +227,7 @@ geotab.addin.heatmap = () => {
           elVehicleSelect.add(option);
         });
       }, errorHandler);
-
+console.log(7);
       setTimeout(() => {
         map.invalidateSize();
       }, 200);
