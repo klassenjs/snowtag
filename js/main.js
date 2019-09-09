@@ -57,9 +57,12 @@ console.log(1);
     let dateTo = new Date(toValue).toISOString();
 console.log(7);
 console.log(deviceId);
+
+
+    function logRecord(deviceId, dateFrom, dateTo) {
     api.call('Get', {
       typeName: 'LogRecord',
-      resultsLimit: 10000,
+      resultsLimit: 100,
       search: {
         deviceSearch: {
           id: deviceId
@@ -94,7 +97,7 @@ console.log(deviceId);
       errorHandler(error);
       toggleLoading(false);
     });
-  };
+  }};
 
   /**
    * Intialize the user interface
