@@ -82,8 +82,8 @@ console.log(deviceId);
                 "id": "a1wrQ3PBsTUuNVZ7cqjCjHA",
                 "includeZoneStopRules": false
             },
-            "fromDate": vehicles.dateFrom,
-            "toDate": vehicles.dateTo
+            "fromDate": vehicles.fromDate,
+            "toDate": vehicles.toDate
       }
     }, function(exception) {
         for (var i = 0; i < exception.length; i++){
