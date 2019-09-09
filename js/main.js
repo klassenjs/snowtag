@@ -61,30 +61,31 @@ console.log(deviceId);
 
 
 api.call("Get", {
-    "typeName": "ExceptionEvent",
-    resultsLimit: 1000,
-    "search": {
-        "deviceSearch": {
-            "id": "b2B"
+    typeName: "ExceptionEvent",
+    resultsLimit: 10,
+    search: {
+        deviceSearch: {
+            id: "b2B"
         },
-        "ruleSearch": {
-            "id": "a1wrQ3PBsTUuNVZ7cqjCjHA",
-            "includeZoneStopRules": false
+        ruleSearch: {
+            id: "a1wrQ3PBsTUuNVZ7cqjCjHA",
+            includeZoneStopRules: false
         },
-        "fromDate": "2019-02-06T18:59:34.000Z",
-        "toDate": "2019-05-07T18:59:58.000Z"
+        fromDate: "2019-02-06T18:59:34.000Z",
+        toDate: "2019-05-07T18:59:58.000Z"
   }
 }, function(results) {
   console.log(results);
   api.call('Get', {
     typeName: 'LogRecord',
-    resultsLimit: 1000,
+    resultsLimit: 10,
     search: {
       deviceSearch: {
         id: results.id
       },
       fromDate: results.fromDate,
       toDate: results.toDate
+      console.log(results.fromDate)
 }});
 });
 
