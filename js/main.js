@@ -131,6 +131,8 @@ function logRecord(exception) {
         });
     });
 }
+console.log(LogRecord[0].latitude)
+console.log(LogRecord[0].longitude)
 
     api.call('Get', {
       typeName: 'LogRecord',
