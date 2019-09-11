@@ -139,8 +139,9 @@ function logRecord(exception) {
 
         let coordinates = [];
         let bounds = [];
-
+        console.log(8);
         for (let i = 0; i < LogRecord.length; i++) {
+        console.log(9);
           if (LogRecord[i].latitude !== 0 || LogRecord[i].longitude !== 0) {
             coordinates.push({
               lat: LogRecord[i].latitude,
