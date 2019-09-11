@@ -106,7 +106,7 @@ function logRecord(exception) {
     }, function(LogRecord) {
       let coordinates = [];
       let bounds = [];
-
+console.log("hi" + LogRecord.latitude)
       for (let i = 0; i < LogRecord.length; i++) {
         if (LogRecord[i].latitude !== 0 || LogRecord[i].longitude !== 0) {
           coordinates.push({
@@ -117,42 +117,43 @@ function logRecord(exception) {
           bounds.push(new L.LatLng(LogRecord[i].latitude, LogRecord[i].longitude));
         }
       }
-console.log("hi")
+
       if (coordinates.length > 0) {
         map.fitBounds(bounds);
         heatMapLayer.setLatLngs(coordinates);
       } else {
         errorHandler('Not enough data');
       }
+      toggleLoading(false);
 
-        api.call("GetAddresses", {
-            "coordinates": [{
-                "x": LogRecord[0].longitude,
-                "y": LogRecord[0].latitude
-            }],
-            "movingAddreses": false,
-            "hosAddresses": false
-
-        }, function(Address) {
-            api.call("Get", {
-                "typeName": "Device",
-                "search": {
-                    "id": exception.device.id
-                }
-            }, function(Device) {
-                        api.call("Get", {
-                            "typeName": "Rule",
-                            "search": {
-                                "id": exception.rule.id
-                            }
-                        }, function(Rule) {
-                            console.log(Device[0].name + " was at : " + Address[0].formattedAddress +
-                            ", (coordinates: " + LogRecord[0].latitude + ", " + LogRecord[0].longitude +
-                            ") and triggered the " + Rule[0].name + " rule. They were active from" + exception.activeFrom + "to" + exception.activeTo);
-                        });
-                    }
-                );
-        });
+        // api.call("GetAddresses", {
+        //     "coordinates": [{
+        //         "x": LogRecord[0].longitude,
+        //         "y": LogRecord[0].latitude
+        //     }],
+        //     "movingAddreses": false,
+        //     "hosAddresses": false
+        //
+        // }, function(Address) {
+        //     api.call("Get", {
+        //         "typeName": "Device",
+        //         "search": {
+        //             "id": exception.device.id
+        //         }
+        //     }, function(Device) {
+        //                 api.call("Get", {
+        //                     "typeName": "Rule",
+        //                     "search": {
+        //                         "id": exception.rule.id
+        //                     }
+        //                 }, function(Rule) {
+        //                     console.log(Device[0].name + " was at : " + Address[0].formattedAddress +
+        //                     ", (coordinates: " + LogRecord[0].latitude + ", " + LogRecord[0].longitude +
+        //                     ") and triggered the " + Rule[0].name + " rule. They were active from" + exception.activeFrom + "to" + exception.activeTo);
+        //                 });
+        //             }
+        //         );
+        // });
     }, function (error) {
       errorHandler(error);
       toggleLoading(false);
