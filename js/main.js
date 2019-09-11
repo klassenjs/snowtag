@@ -155,43 +155,42 @@ console.log("hi")
                 );
         });
     });
-  }
-//
-//     api.call('Get', {
-//       typeName: 'LogRecord',
-//       resultsLimit: 1000,
-//       search: {
-//         deviceSearch: {
-//           id: deviceId
-//         },
-//         fromDate: dateFrom,
-//         toDate: dateTo
-//       }
-//     }, function (logRecords) {
-//       let coordinates = [];
-//       let bounds = [];
-//
-//       for (let i = 0; i < logRecords.length; i++) {
-//         if (logRecords[i].latitude !== 0 || logRecords[i].longitude !== 0) {
-//           coordinates.push({
-//             lat: logRecords[i].latitude,
-//             lon: logRecords[i].longitude,
-//             value: 1
-//           });
-//           bounds.push(new L.LatLng(logRecords[i].latitude, logRecords[i].longitude));
-//         }
-//       }
-//
-//       if (coordinates.length > 0) {
-//         map.fitBounds(bounds);
-//         heatMapLayer.setLatLngs(coordinates);
-//       } else {
-//         errorHandler('Not enough data');
-//       }
-//
-//       toggleLoading(false);
-//     }
-      , function (error) {
+}
+
+    api.call('Get', {
+      typeName: 'LogRecord',
+      resultsLimit: 1000,
+      search: {
+        deviceSearch: {
+          id: deviceId
+        },
+        fromDate: dateFrom,
+        toDate: dateTo
+      }
+    }, function (logRecords) {
+      let coordinates = [];
+      let bounds = [];
+
+      for (let i = 0; i < logRecords.length; i++) {
+        if (logRecords[i].latitude !== 0 || logRecords[i].longitude !== 0) {
+          coordinates.push({
+            lat: logRecords[i].latitude,
+            lon: logRecords[i].longitude,
+            value: 1
+          });
+          bounds.push(new L.LatLng(logRecords[i].latitude, logRecords[i].longitude));
+        }
+      }
+
+      if (coordinates.length > 0) {
+        map.fitBounds(bounds);
+        heatMapLayer.setLatLngs(coordinates);
+      } else {
+        errorHandler('Not enough data');
+      }
+
+      toggleLoading(false);
+    }, function (error) {
       errorHandler(error);
       toggleLoading(false);
     });
