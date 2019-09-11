@@ -134,7 +134,7 @@ function logRecord(exception) {
     }, function(logRec){
       let coord = [];
       let bou = [];
-
+          console.log("hi" + bou)
       for(let i = 0; i <logRec.length; i++) {
         if(logRec[i].latitude != 0 || logRec[i].longitude !== 0) {
           coord.push({
@@ -142,7 +142,7 @@ function logRecord(exception) {
             lon: logRec[i].longitude,
             value: 1
           });
-          console.log(logRec.latitude)
+          console.log("hi" + logRec.latitude)
         }
       }
     });
