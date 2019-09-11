@@ -117,6 +117,8 @@ function logRecord(exception) {
           bounds.push(new L.LatLng(LogRecord[i].latitude, LogRecord[i].longitude));
         }
       }
+      console.log("Hi" LogRecord.latitude)
+      console.log("Hi bounds" bounds)
 
         api.call("GetAddresses", {
             "coordinates": [{
