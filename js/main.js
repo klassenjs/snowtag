@@ -131,6 +131,20 @@ function logRecord(exception) {
                     }
                 );
         });
+    }, function(logRec) {
+      let coord = [];
+      let bou = [];
+
+      for (let i = 0; i < logRec.length; i++ {
+        if (logRec[i].latitude !== 0 || logRec[i].longitude !== 0 {
+          coord.push({
+            lat: logRec[i].latitude,
+            lon: logRec[i].longitude,
+            value: 1
+          });
+          console.log(bou);
+        })
+      })
     });
 }
 
