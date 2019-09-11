@@ -107,7 +107,16 @@ function logRecord(exception) {
       let coordinates = [];
       let bounds = [];
 
-      console.log("Hi" + LogRecord[0].latitude)
+      for (let i = 0; i < LogRecord.length; i++) {
+        if (LogRecord[i].latitude !== 0 || LogRecord[i].longitude !== 0) {
+          coordinates.push({
+            lat: LogRecord[i].latitude,
+            lon: LogRecord[i].longitude,
+            value: 1
+          });
+
+        }
+      }
 
         api.call("GetAddresses", {
             "coordinates": [{
