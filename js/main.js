@@ -104,8 +104,6 @@ function logRecord(exception) {
                 "id": exception.device.id
             }
         }
-        console.log(exception.activeFrom);
-        console.log(exception.activeTo);
     }, function(LogRecord) {
         api.call("GetAddresses", {
             "coordinates": [{
@@ -134,6 +132,8 @@ function logRecord(exception) {
                     }
                 );
         });
+        console.log(exception.activeFrom);
+        console.log(exception.activeTo);
         console.log("this is " + LogRecord[0].latitude)
         console.log("this is " + LogRecord[0].longitude)
     });
