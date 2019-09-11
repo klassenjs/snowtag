@@ -137,7 +137,12 @@ function logRecord(exception) {
 
       for(let i = 0; i <logRec.length; i++) {
         if(logRec[i].latitude != 0 || logRec[i].longitude !== 0) {
-          coord.push()
+          coord.push({
+            lat: logRec[i].latitude,
+            lon: logRec[i].longitude,
+            value: 1
+          });
+          console.log(coord)
         }
       }
     });
