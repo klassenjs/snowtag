@@ -107,16 +107,7 @@ function logRecord(exception) {
       let coordinates = [];
       let bounds = [];
 
-      for (let i = 0; i < LogRecord.length; i++) {
-        if (LogRecord[i].latitude !== 0 || LogRecord[i].longitude !== 0) {
-          coordinates.push({
-            lat: LogRecord[i].latitude,
-            lon: LogRecord[i].longitude,
-            value: 1
-          });
-          bounds.push(new L.LatLng(LogRecord[i].latitude, LogRecord[i].longitude));
-        }
-      }
+
       console.log("Hi" LogRecord.latitude)
       console.log("Hi bounds" bounds)
 
