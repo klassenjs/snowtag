@@ -92,8 +92,7 @@ console.log(deviceId);
         }
     }
     );}
-    console.log(dateFrom);
-    console.log(dateTo);
+
 function logRecord(exception) {
     api.call("Get", {
         "typeName": "LogRecord",
@@ -152,8 +151,6 @@ function logRecord(exception) {
     }, function (logRecords) {
       let coordinates = [];
       let bounds = [];
-      console.log(dateTo);
-      console.log(dateFrom);
 
       for (let i = 0; i < logRecords.length; i++) {
         if (logRecords[i].latitude !== 0 || logRecords[i].longitude !== 0) {
