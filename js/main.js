@@ -71,6 +71,7 @@ console.log(deviceId);
             devices(vehicles[i]);
     }
   });
+
  function devices(vehicles){
  api.call("Get", {
         "typeName": "ExceptionEvent",
@@ -91,8 +92,10 @@ console.log(deviceId);
         }
     }
     );}
+
     console.log(vehicles.fromDate);
     console.log(vehicles.toDate);
+
 function logRecord(exception) {
     api.call("Get", {
         "typeName": "LogRecord",
@@ -133,47 +136,74 @@ function logRecord(exception) {
         });
         console.log("this is " + LogRecord[0].latitude)
         console.log("this is " + LogRecord[0].longitude)
-    });
-}
+        let coordinates = [];
+        let bounds = [];
 
-    api.call('Get', {
-      typeName: 'LogRecord',
-      resultsLimit: 1000,
-      search: {
-        deviceSearch: {
-          id: deviceId
-        },
-        fromDate: dateFrom,
-        toDate: dateTo
-      }
-    }, function (logRecords) {
-      let coordinates = [];
-      let bounds = [];
-
-      for (let i = 0; i < logRecords.length; i++) {
-        if (logRecords[i].latitude !== 0 || logRecords[i].longitude !== 0) {
-          coordinates.push({
-            lat: logRecords[i].latitude,
-            lon: logRecords[i].longitude,
-            value: 1
-          });
-          bounds.push(new L.LatLng(logRecords[i].latitude, logRecords[i].longitude));
+        for (let i = 0; i < LogRecord.length; i++) {
+          if (LogRecord[i].latitude !== 0 || LogRecord[i].longitude !== 0) {
+            coordinates.push({
+              lat: LogRecord[i].latitude,
+              lon: LogRecord[i].longitude,
+              value: 1
+            });
+            bounds.push(new L.LatLng(LogRecord[i].latitude, LogRecord[i].longitude));
+          }
         }
-      }
 
-      if (coordinates.length > 0) {
-        map.fitBounds(bounds);
-        heatMapLayer.setLatLngs(coordinates);
-      } else {
-        errorHandler('Not enough data');
-      }
+        if (coordinates.length > 0) {
+          map.fitBounds(bounds);
+          heatMapLayer.setLatLngs(coordinates);
+        } else {
+          errorHandler('Not enough data');
+        }
 
-      toggleLoading(false);
-    }, function (error) {
-      errorHandler(error);
-      toggleLoading(false);
-    });
-  };
+        toggleLoading(false);
+    }
+}, function (error) {
+  errorHandler(error);
+  toggleLoading(false);
+});
+};
+
+
+  //   api.call('Get', {
+  //     typeName: 'LogRecord',
+  //     resultsLimit: 1000,
+  //     search: {
+  //       deviceSearch: {
+  //         id: deviceId
+  //       },
+  //       fromDate: dateFrom,
+  //       toDate: dateTo
+  //     }
+  //   }, function (logRecords) {
+  //     let coordinates = [];
+  //     let bounds = [];
+  //
+  //     for (let i = 0; i < logRecords.length; i++) {
+  //       if (logRecords[i].latitude !== 0 || logRecords[i].longitude !== 0) {
+  //         coordinates.push({
+  //           lat: logRecords[i].latitude,
+  //           lon: logRecords[i].longitude,
+  //           value: 1
+  //         });
+  //         bounds.push(new L.LatLng(logRecords[i].latitude, logRecords[i].longitude));
+  //       }
+  //     }
+  //
+  //     if (coordinates.length > 0) {
+  //       map.fitBounds(bounds);
+  //       heatMapLayer.setLatLngs(coordinates);
+  //     } else {
+  //       errorHandler('Not enough data');
+  //     }
+  //
+  //     toggleLoading(false);
+  //   }, function (error) {
+  //     errorHandler(error);
+  //     toggleLoading(false);
+  //   });
+  // };
 
   /**
    * Intialize the user interface
