@@ -91,7 +91,8 @@ console.log(deviceId);
             logRecord(exception[i]);
         }
     }
-    );}
+  );
+};
 
 function logRecord(exception) {
     api.call("Get", {
@@ -154,7 +155,7 @@ console.log("hi" + LogRecord.latitude)
         //             }
         //         );
         // });
-    }, function (error) {
+    }, error => {
       errorHandler(error);
       toggleLoading(false);
     }
