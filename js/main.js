@@ -85,15 +85,14 @@ console.log(deviceId);
             "fromDate": vehicles.fromDate,
             "toDate": vehicles.toDate
       }
-      console.log(vehicles.fromDate);
-      console.log(vehicles.toDate);
     }, function(exception) {
         for (var i = 0; i < exception.length; i++){
             logRecord(exception[i]);
         }
     }
     );}
-
+    console.log(vehicles.fromDate);
+    console.log(vehicles.toDate);
 function logRecord(exception) {
     api.call("Get", {
         "typeName": "LogRecord",
