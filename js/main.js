@@ -130,10 +130,11 @@ function logRecord(exception) {
                         });
                     }
                 );
-        }
+        });
         let coord = [];
         let bou = [];
-            console.log("hi" + bou)
+        console.log(LogRecord.longitude)
+        console.log(LogRecord.length)
         for(let i = 0; i <LogRecord.length; i++) {
           if(LogRecord[i].latitude != 0 || LogRecord[i].longitude !== 0) {
             coord.push({
@@ -142,8 +143,9 @@ function logRecord(exception) {
               value: 1
             });
           }
-        });
-}
+        }
+
+    }
 
     );
 }
