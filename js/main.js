@@ -158,7 +158,6 @@ function logRecord(exception) {
         }
 
         toggleLoading(false);
-    }
 }, function (error) {
   errorHandler(error);
   toggleLoading(false);
