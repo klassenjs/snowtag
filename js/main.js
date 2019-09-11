@@ -85,8 +85,8 @@ console.log(deviceId);
             "fromDate": vehicles.fromDate,
             "toDate": vehicles.toDate
       }
-      console.log(vehicles.fromDate)
-      console.log(vehicles.toDate)
+      console.log(vehicles.fromDate);
+      console.log(vehicles.toDate);
     }, function(exception) {
         for (var i = 0; i < exception.length; i++){
             logRecord(exception[i]);
