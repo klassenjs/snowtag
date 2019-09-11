@@ -124,7 +124,6 @@ console.log("hi")
       } else {
         errorHandler('Not enough data');
       }
-      toggleLoading(false);
 
         api.call("GetAddresses", {
             "coordinates": [{
