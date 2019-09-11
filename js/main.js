@@ -108,9 +108,6 @@ function logRecord(exception) {
       let bounds = [];
 
 
-      console.log("Hi" + LogRecord.latitude)
-      console.log("Hi bounds" + bounds)
-
         api.call("GetAddresses", {
             "coordinates": [{
                 "x": LogRecord[0].longitude,
@@ -118,6 +115,7 @@ function logRecord(exception) {
             }],
             "movingAddreses": false,
             "hosAddresses": false
+
         }, function(Address) {
             api.call("Get", {
                 "typeName": "Device",
