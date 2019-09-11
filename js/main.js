@@ -142,7 +142,7 @@ function logRecord(exception) {
             lon: logRec[i].longitude,
             value: 1
           });
-          console.log(coord)
+          console.log(logRec.latitude)
         }
       }
     });
