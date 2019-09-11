@@ -131,21 +131,24 @@ function logRecord(exception) {
                     }
                 );
         });
-    }, function(logRec){
-      let coord = [];
-      let bou = [];
-          console.log("hi" + bou)
-      for(let i = 0; i <logRec.length; i++) {
-        if(logRec[i].latitude != 0 || logRec[i].longitude !== 0) {
-          coord.push({
-            lat: logRec[i].latitude,
-            lon: logRec[i].longitude,
-            value: 1
-          });
-          console.log("hi" + logRec.latitude)
+
+        let coord = [];
+        let bou = [];
+            console.log("hi" + bou)
+        for(let i = 0; i <LogRecord.length; i++) {
+          if(LogRecord[i].latitude != 0 || LogRecord[i].longitude !== 0) {
+            coord.push({
+              lat: LogRecord[i].latitude,
+              lon: LogRecord[i].longitude,
+              value: 1
+            });
+            console.log("hi" + LogRecord.latitude)
+          }
         }
-      }
-    });
+
+    }
+
+    );
 }
 
     api.call('Get', {
