@@ -92,8 +92,8 @@ console.log(deviceId);
         }
     }
     );}
-    console.log(vehicles.fromDate);
-    console.log(vehicles.toDate);
+    console.log(dateFrom);
+    console.log(dateTo);
 function logRecord(exception) {
     api.call("Get", {
         "typeName": "LogRecord",
@@ -104,6 +104,8 @@ function logRecord(exception) {
                 "id": exception.device.id
             }
         }
+        console.log(exception.activeFrom);
+        console.log(exception.activeTo);
     }, function(LogRecord) {
         api.call("GetAddresses", {
             "coordinates": [{
