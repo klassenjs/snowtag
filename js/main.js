@@ -130,8 +130,7 @@ function logRecord(exception) {
                         });
                     }
                 );
-        });
-
+        }
         let coord = [];
         let bou = [];
             console.log("hi" + bou)
@@ -142,11 +141,9 @@ function logRecord(exception) {
               lon: LogRecord[i].longitude,
               value: 1
             });
-            console.log("hi" + LogRecord.latitude)
           }
-        }
-
-    }
+        });
+}
 
     );
 }
