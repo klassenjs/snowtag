@@ -114,8 +114,15 @@ function logRecord(exception) {
             lon: LogRecord[i].longitude,
             value: 1
           });
-
+          bounds.push(new L.LatLng(LogRecord[i].latitude, LogRecord[i].longitude));
         }
+      }
+console.log("hi")
+      if (coordinates.length > 0) {
+        map.fitBounds(bounds);
+        heatMapLayer.setLatLngs(coordinates);
+      } else {
+        errorHandler('Not enough data');
       }
 
         api.call("GetAddresses", {
