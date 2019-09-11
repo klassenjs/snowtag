@@ -91,8 +91,7 @@ console.log(deviceId);
             logRecord(exception[i]);
         }
     }
-  );
-};
+    );}
 
 function logRecord(exception) {
     api.call("Get", {
