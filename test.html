@@ -153,7 +153,7 @@
   </script>
 </body>
 </html> -->
-<!-- <script type="text/javascript">
+<script type="text/javascript">
 /**
  * @returns {{initialize: Function, focus: Function, blur: Function}}
  */
@@ -391,8 +391,134 @@ geotab.addin.heatmap = () => {
   };
 };
 
+
+let displayHeatMap = function () {
+  let deviceId = elVehicleSelect.value;
+  let fromValue = elDateFromInput.value;
+  let toValue = elDateToInput.value;
+
+  errorHandler('');
+
+  if ((deviceId === null) || (fromValue === '') || (toValue === '')) {
+    return;
+  }
+
+  toggleLoading(true);
+
+  let dateFrom = new Date(fromValue).toISOString();
+  let dateTo = new Date(toValue).toISOString();
+
+console.log(7);
+console.log(deviceId);
+
+api.call('Get', {
+  typeName: 'Device',
+  search: {
+    fromDate: dateFrom,
+    toDate: dateTo,
+    id: deviceId
+  }
+}, function(vehicles) {
+      for (var i = 0; i < vehicles.length; i++){
+          devices(vehicles[i]);
+  }
+});
+
+function devices(vehicles){
+api.call("Get", {
+      "typeName": "ExceptionEvent",
+      "search": {
+          "deviceSearch": {
+              "id": vehicles.id
+          },
+          "ruleSearch": {
+              "id": "a1wrQ3PBsTUuNVZ7cqjCjHA",
+              "includeZoneStopRules": false
+          },
+          "fromDate": dateFrom,
+          "toDate": dateTo
+    }
+  }, function(exception) {
+      for (var i = 0; i < exception.length; i++){
+          logRecord(exception[i]);
+      }
+  }
+  );}
+
+  console.log(vehicles.fromDate);
+  console.log(vehicles.toDate);
+
+function logRecord(exception) {
+  api.call("Get", {
+      "typeName": "LogRecord",
+      "search": {
+          "fromDate": exception.activeFrom,
+          "toDate": exception.activeTo,
+          "deviceSearch": {
+              "id": exception.device.id
+          }
+      }
+  }, function(LogRecord) {
+      api.call("GetAddresses", {
+          "coordinates": [{
+              "x": LogRecord[0].longitude,
+              "y": LogRecord[0].latitude
+          }],
+          "movingAddreses": false,
+          "hosAddresses": false
+      }, function(Address) {
+          api.call("Get", {
+              "typeName": "Device",
+              "search": {
+                  "id": exception.device.id
+              }
+          }, function(Device) {
+                      api.call("Get", {
+                          "typeName": "Rule",
+                          "search": {
+                              "id": exception.rule.id
+                          }
+                      }, function(Rule) {
+                          console.log(Device[0].name + " was at : " + Address[0].formattedAddress +
+                          ", (coordinates: " + LogRecord[0].latitude + ", " + LogRecord[0].longitude +
+                          ") and triggered the " + Rule[0].name + " rule");
+                      });
+                  }
+              );
+      });
+      console.log("this is " + LogRecord[0].latitude)
+      console.log("this is " + LogRecord[0].longitude)
+      let coordinates = [];
+      let bounds = [];
+
+      for (let i = 0; i < LogRecord.length; i++) {
+        if (LogRecord[i].latitude !== 0 || LogRecord[i].longitude !== 0) {
+          coordinates.push({
+            lat: LogRecord[i].latitude,
+            lon: LogRecord[i].longitude,
+            value: 1
+          });
+          bounds.push(new L.LatLng(LogRecord[i].latitude, LogRecord[i].longitude));
+        }
+      }
+
+      if (coordinates.length > 0) {
+        map.fitBounds(bounds);
+        heatMapLayer.setLatLngs(coordinates);
+      } else {
+        errorHandler('Not enough data');
+      }
+
+      toggleLoading(false);
+  }
+}, function (error) {
+errorHandler(error);
+toggleLoading(false);
+});}
+};
+
 </script>
- -->
+
 
 // var snowtag = api.call('Get', {'typeName': 'Device',
 //               'search': {
