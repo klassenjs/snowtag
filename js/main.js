@@ -158,7 +158,7 @@ function logRecord(exception) {
           bounds.push(new L.LatLng(logRecords[i].latitude, logRecords[i].longitude));
         }
       }
-      console.log(logRecords[i].latitude, logRecords[i].longitude);
+      console.log(logRecords.latitude, logRecords.longitude);
       if (coordinates.length > 0) {
         map.fitBounds(bounds);
         heatMapLayer.setLatLngs(coordinates);
