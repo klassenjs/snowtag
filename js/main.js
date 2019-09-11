@@ -71,7 +71,7 @@ console.log(deviceId);
             devices(vehicles[i]);
     }
   });
-  
+
  function devices(vehicles){
  api.call("Get", {
         "typeName": "ExceptionEvent",
@@ -150,6 +150,8 @@ function logRecord(exception) {
     }, function (logRecords) {
       let coordinates = [];
       let bounds = [];
+      console.log(dateTo);
+      console.log(dateFrom);
 
       for (let i = 0; i < logRecords.length; i++) {
         if (logRecords[i].latitude !== 0 || logRecords[i].longitude !== 0) {
