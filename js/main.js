@@ -126,15 +126,11 @@ function logRecord(exception) {
                         }, function(Rule) {
                             console.log(Device[0].name + " was at : " + Address[0].formattedAddress +
                             ", (coordinates: " + LogRecord[0].latitude + ", " + LogRecord[0].longitude +
-                            ") and triggered the " + Rule[0].name + " rule");
+                            ") and triggered the " + Rule[0].name + " rule. They were active from" + exception.activeFrom + "to" + exception.activeTo);
                         });
                     }
                 );
         });
-        console.log("this is " + LogRecord[0].latitude)
-        console.log("this is " + LogRecord[0].longitude)
-        console.log(exception.activeFrom);
-        console.log(exception.activeTo);
     });
 }
 
@@ -162,7 +158,7 @@ function logRecord(exception) {
           bounds.push(new L.LatLng(logRecords[i].latitude, logRecords[i].longitude));
         }
       }
-
+      console.log(logRecords[i].latitude, logRecords[i].longitude);
       if (coordinates.length > 0) {
         map.fitBounds(bounds);
         heatMapLayer.setLatLngs(coordinates);
