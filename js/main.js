@@ -94,16 +94,20 @@ function logRecord(exception) {
       let coordinates = [];
       let bounds = [];
 
+      console.log("lat " + logRecords[0].latitude);
+      console.log("long " + logRecords[0].longitude);
+
+
       for (let i = 0; i < logRecords.length; i++) {
         if (logRecords[i].latitude !== 0 || logRecords[i].longitude !== 0) {
-          console.log("lat" + logRecords[0].latitude);
-          console.log("long" + logRecords[0].longitude);
+
           coordinates.push({
             lat: logRecords[i].latitude,
             lon: logRecords[i].longitude,
             value: 1
           });
           bounds.push(new L.LatLng(logRecords[i].latitude, logRecords[i].longitude));
+          console.log(bounds)
         }
       }
       if (coordinates.length > 0) {
