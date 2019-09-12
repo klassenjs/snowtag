@@ -57,7 +57,7 @@ console.log(1);
     let dateTo = new Date(toValue).toISOString();
 
 console.log(7);
-console.log(deviceId);
+console.log("hi");
 
 
   //   api.call('Get', {
@@ -120,7 +120,7 @@ console.log(deviceId);
         }
     }
     );
-
+console.log("there");
 function logRecord(exception) {
     api.call("Get", {
         "typeName": "LogRecord",
@@ -166,6 +166,7 @@ function logRecord(exception) {
                     }
                 );
         });
+        console.log("my");
         for (let x=0; x < logRecords.length; x++){
         console.log(logRecords[0].latitude, logRecords[0].longitude);}
 
@@ -173,8 +174,9 @@ function logRecord(exception) {
         let bounds = [];
 
         for (let i = 0; i < logRecords.length; i++) {
+          console.log("name");
           if (logRecords[i].latitude != 0 || logRecords[i].longitude != 0) {
-
+console.log("is");
             coordinates.push({
               lat: logRecords[i].latitude,
               lon: logRecords[i].longitude,
