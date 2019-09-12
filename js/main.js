@@ -93,10 +93,11 @@ function logRecord(exception) {
     }, logRecords => {
       let coordinates = [];
       let bounds = [];
-      console.log(logRecords[0].latitude);
 
       for (let i = 0; i < logRecords.length; i++) {
         if (logRecords[i].latitude !== 0 || logRecords[i].longitude !== 0) {
+          console.log("lat" + logRecords[0].latitude);
+          console.log("long" + logRecords[0].longitude);
           coordinates.push({
             lat: logRecords[i].latitude,
             lon: logRecords[i].longitude,
