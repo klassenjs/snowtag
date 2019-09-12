@@ -193,11 +193,11 @@ console.log(bounds, coordinates);
     //                 }
     //             );
     //     });
-    }, error => {
-      console.log("ring");
-      errorHandler(error);
-      toggleLoading(false);
     });
+}, error => {
+  console.log("ring");
+  errorHandler(error);
+  toggleLoading(false);
 }
 };
 
