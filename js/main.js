@@ -119,7 +119,7 @@ console.log("hi")
             api.call("Get", {
                 "typeName": "Device",
                 "search": {
-                    "id": exception.device.id
+                    "id": deviceId
                 }
             }, function(Device) {
                         api.call("Get", {
