@@ -137,6 +137,32 @@ function logRecord(exception) {
       // for (var x=0; x < logRecords.length; x++){
       // console.log(logRecords[x].latitude, logRecords[x].longitude);}
       // console.log(exception.device.id);
+      console.log("my");
+      for (let x=0; x < logRecords.length; x++){
+      console.log(logRecords[0].latitude, logRecords[0].longitude);}
+
+      let coordinates = [];
+      let bounds = [];
+
+      for (let i = 0; i < logRecords.length; i++) {
+        if (logRecords[i].latitude !== 0 || logRecords[i].longitude !== 0) {
+          coordinates.push({
+            lat: logRecords[0].latitude,
+            lon: logRecords[0].longitude,
+            value: 1
+          });
+          bounds.push(new L.LatLng(logRecords[i].latitude, logRecords[i].longitude));
+        }
+      }
+console.log("precious");
+console.log(bounds, coordinates);
+      if (coordinates.length > 0) {
+        map.fitBounds(bounds);
+        heatMapLayer.setLatLngs(coordinates);
+      } else {
+        errorHandler('Not enough data');
+      }
+    toggleLoading(false);
 
         api.call("GetAddresses", {
             "coordinates": [{
@@ -145,32 +171,6 @@ function logRecord(exception) {
             }],
             "movingAddreses": false,
             "hosAddresses": false
-            console.log("my");
-            for (let x=0; x < logRecords.length; x++){
-            console.log(logRecords[0].latitude, logRecords[0].longitude);}
-
-            let coordinates = [];
-            let bounds = [];
-
-            for (let i = 0; i < logRecords.length; i++) {
-              if (logRecords[i].latitude !== 0 || logRecords[i].longitude !== 0) {
-                coordinates.push({
-                  lat: logRecords[0].latitude,
-                  lon: logRecords[0].longitude,
-                  value: 1
-                });
-                bounds.push(new L.LatLng(logRecords[i].latitude, logRecords[i].longitude));
-              }
-            }
-    console.log("precious");
-    console.log(bounds, coordinates);
-            if (coordinates.length > 0) {
-              map.fitBounds(bounds);
-              heatMapLayer.setLatLngs(coordinates);
-            } else {
-              errorHandler('Not enough data');
-            }
-          toggleLoading(false);
 
         }, function(Address) {
             api.call("Get", {
