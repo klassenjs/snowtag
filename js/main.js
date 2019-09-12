@@ -75,7 +75,7 @@ console.log(deviceId);
       }
     }, function(exception) {
       console.log(dateFrom);
-      console.log(dateTo);
+      console.log(exception);
     api.call("Get", {
         typeName: "LogRecord",
         search: {
