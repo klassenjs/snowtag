@@ -138,6 +138,7 @@ function logRecord(exception) {
       // console.log(logRecords[x].latitude, logRecords[x].longitude);}
       // console.log(exception.device.id);
       console.log("my");
+      var test = [];
       for (let x=0; x < logRecords.length; x++){
       console.log(logRecords[0].latitude, logRecords[0].longitude);}
 
@@ -156,43 +157,44 @@ function logRecord(exception) {
       }
 console.log("precious");
 console.log(bounds, coordinates);
-      if (coordinates.length > 0) {
-        map.fitBounds(bounds);
-        heatMapLayer.setLatLngs(coordinates);
-      } else {
-        errorHandler('Not enough data');
-      }
-    toggleLoading(false);
-
-        api.call("GetAddresses", {
-            "coordinates": [{
-                "x": logRecords[0].longitude,
-                "y": logRecords[0].latitude
-            }],
-            "movingAddreses": false,
-            "hosAddresses": false
-
-        }, function(Address) {
-            api.call("Get", {
-                "typeName": "Device",
-                "search": {
-                    "id": exception.device.id
-                }
-            }, function(Device) {
-                        api.call("Get", {
-                            "typeName": "Rule",
-                            "search": {
-                                "id": exception.rule.id
-                            }
-                        }, function(Rule) {
-                            console.log(Device[0].name + " was at : " + Address[0].formattedAddress +
-                            ", (coordinates: " + logRecords[0].latitude + ", " + logRecords[0].longitude +
-                            ") and triggered the " + Rule[0].name + " rule. They were active from" + exception.activeFrom + "to" + exception.activeTo);
-                        });
-                    }
-                );
-        });
+    //   if (coordinates.length > 0) {
+    //     map.fitBounds(bounds);
+    //     heatMapLayer.setLatLngs(coordinates);
+    //   } else {
+    //     errorHandler('Not enough data');
+    //   }
+    // toggleLoading(false);
+    //
+    //     api.call("GetAddresses", {
+    //         "coordinates": [{
+    //             "x": logRecords[0].longitude,
+    //             "y": logRecords[0].latitude
+    //         }],
+    //         "movingAddreses": false,
+    //         "hosAddresses": false
+    //
+    //     }, function(Address) {
+    //         api.call("Get", {
+    //             "typeName": "Device",
+    //             "search": {
+    //                 "id": exception.device.id
+    //             }
+    //         }, function(Device) {
+    //                     api.call("Get", {
+    //                         "typeName": "Rule",
+    //                         "search": {
+    //                             "id": exception.rule.id
+    //                         }
+    //                     }, function(Rule) {
+    //                         console.log(Device[0].name + " was at : " + Address[0].formattedAddress +
+    //                         ", (coordinates: " + logRecords[0].latitude + ", " + logRecords[0].longitude +
+    //                         ") and triggered the " + Rule[0].name + " rule. They were active from" + exception.activeFrom + "to" + exception.activeTo);
+    //                     });
+    //                 }
+    //             );
+    //     });
     }, error => {
+      console.log("ring");
       errorHandler(error);
       toggleLoading(false);
     });
