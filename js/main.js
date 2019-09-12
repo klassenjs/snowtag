@@ -105,7 +105,6 @@ function logRecord(exception) {
         }
       }
       if (coordinates.length > 0) {
-        console.log("hi2")
         map.fitBounds(bounds);
         heatMapLayer.setLatLngs(coordinates);
       } else {
@@ -141,12 +140,11 @@ function logRecord(exception) {
         //         );
         // });
       toggleLoading(false);
-      console.log("hi2")
-    }, error => {
-      errorHandler(error);
-      toggleLoading(false);
-    });
-}
+    }
+}, error => {
+  errorHandler(error);
+  toggleLoading(false);
+});
 };
 
   //   api.call('Get', {
