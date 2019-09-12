@@ -58,8 +58,6 @@ console.log(1);
 
 console.log(7);
 console.log(deviceId);
-console.log(dateFrom);
-console.log(dateTo);
 
 
  api.call("Get", {
@@ -76,6 +74,8 @@ console.log(dateTo);
             toDate: dateTo
       }
     }, function(exception) {
+      console.log(dateFrom);
+      console.log(dateTo);
     api.call("Get", {
         typeName: "LogRecord",
         search: {
