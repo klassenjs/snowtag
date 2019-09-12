@@ -177,9 +177,13 @@ function logRecord(exception) {
           console.log("name");
           if (logRecords[i].latitude != 0 || logRecords[i].longitude != 0) {
 console.log("is");
+console.log(            coordinates.push({
+              lat: logRecords[i].latitude,
+              lon: logRecords[i].longitude,
+              value: 1
+
+            });)
             coordinates.push({
-              console.log("nicole");
-              
               lat: logRecords[i].latitude,
               lon: logRecords[i].longitude,
               value: 1
