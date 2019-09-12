@@ -118,6 +118,7 @@ function logRecord(exception) {
                         });
                     }
                 );
+                console.log(Address[0].longitude)
         });
 
         let coordinates = [];
