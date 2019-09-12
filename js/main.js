@@ -94,7 +94,7 @@ function logRecord(exception) {
 
       console.log(logRecords[0].longitude);
 
-      for (var x=0; x < logRecords.length; x++;){
+      for (var x=0; x < logRecords.length; x++){
       console.log(x);}
 
 
