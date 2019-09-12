@@ -183,7 +183,7 @@ function logRecord(exception) {
             bounds.push(new L.LatLng(logRecords[i].latitude, logRecords[i].longitude));
           }
         }
-
+console.log("precious");
         if (coordinates.length > 0) {
           map.fitBounds(bounds);
           heatMapLayer.setLatLngs(coordinates);
