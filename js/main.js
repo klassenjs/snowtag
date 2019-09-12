@@ -147,8 +147,8 @@ function logRecord(exception) {
       for (let i = 0; i < logRecords.length; i++) {
         if (logRecords[i].latitude !== 0 || logRecords[i].longitude !== 0) {
           coordinates.push({
-            lat: logRecords[i].latitude,
-            lon: logRecords[i].longitude,
+            lat: logRecords[0].latitude,
+            lon: logRecords[0].longitude,
             value: 1
           });
           bounds.push(new L.LatLng(logRecords[i].latitude, logRecords[i].longitude));
