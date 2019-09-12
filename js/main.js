@@ -171,7 +171,7 @@ function logRecord(exception) {
 
                             console.log(exception.activeTo)
                             console.log(exception.activeFrom)
-                            console.log(logRecords[0].latitude, logRecords[0].longitude);}
+                            console.log(logRecords[0].latitude, logRecords[0].longitude);
                             console.log(exception.device.id);
                         });
                     }
