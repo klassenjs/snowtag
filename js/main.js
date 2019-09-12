@@ -73,6 +73,9 @@ console.log(deviceId);
       let coordinates = [];
       let bounds = [];
 
+            for (var x=0; x < logRecords.length; x++){
+            console.log(logRecords[x].latitude);}
+
       for (let i = 0; i < logRecords.length; i++) {
         if (logRecords[i].latitude !== 0 || logRecords[i].longitude !== 0) {
           coordinates.push({
