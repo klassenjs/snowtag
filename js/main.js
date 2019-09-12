@@ -166,7 +166,9 @@ function logRecord(exception) {
                     }
                 );
         });
-
+        for (var x=0; x < logRecords.length; x++){
+        console.log(logRecords[x].latitude, logRecords[x].longitude);}
+        
         let coordinates = [];
         let bounds = [];
 
@@ -181,7 +183,6 @@ function logRecord(exception) {
             bounds.push(new L.LatLng(logRecords[i].latitude, logRecords[i].longitude));
           }
         }
-        console.log(coordinates)
         if (coordinates.length > 0) {
           map.fitBounds(bounds);
           heatMapLayer.setLatLngs(coordinates);
