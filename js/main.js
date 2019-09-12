@@ -138,7 +138,6 @@ function logRecord(exception) {
       // console.log(logRecords[x].latitude, logRecords[x].longitude);}
       // console.log(exception.device.id);
       console.log("my");
-      var test = [];
       for (let x=0; x < logRecords.length; x++){
       console.log(logRecords[0].latitude, logRecords[0].longitude);}
 
@@ -193,11 +192,10 @@ console.log(bounds, coordinates);
     //                 }
     //             );
     //     });
+    }, error => {
+      errorHandler(error);
+      toggleLoading(false);
     });
-}, error => {
-  console.log("ring");
-  errorHandler(error);
-  toggleLoading(false);
 }
 };
 
