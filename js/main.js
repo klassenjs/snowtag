@@ -172,7 +172,7 @@ function logRecord(exception) {
         let coordinates = [];
         let bounds = [];
 
-        for (let i = 0; i < logRecords[0].length; i++) {
+        for (let i = 0; i < logRecords.length; i++) {
           if (logRecords[i].latitude !== 0 || logRecords[i].longitude !== 0) {
 
             coordinates.push({
@@ -312,8 +312,7 @@ console.log(4);
       api.call('Get', {
         typeName: 'Device',
         search: {
-          fromDate: new Date().toISOString(),
-          'groups': [{'id': 'b27D5'}]
+          fromDate: new Date().toISOString()
         }
       }, vehicles => {
         if (!vehicles || vehicles.length < 0) {
