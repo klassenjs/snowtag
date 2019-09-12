@@ -312,7 +312,8 @@ console.log(4);
       api.call('Get', {
         typeName: 'Device',
         search: {
-          fromDate: new Date().toISOString()
+          fromDate: new Date().toISOString(),
+          'groups': [{'id': 'b27D5'}]
         }
       }, vehicles => {
         if (!vehicles || vehicles.length < 0) {
