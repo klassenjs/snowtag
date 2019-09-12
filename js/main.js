@@ -173,14 +173,14 @@ function logRecord(exception) {
         let bounds = [];
 
         for (let i = 0; i < logRecords.length; i++) {
-          if (logRecords[0].latitude != 0 || logRecords[0].longitude != 0) {
+          if (logRecords[i].latitude != 0 || logRecords[i].longitude != 0) {
 
             coordinates.push({
-              lat: logRecords[0].latitude,
-              lon: logRecords[0].longitude,
+              lat: logRecords[i].latitude,
+              lon: logRecords[i].longitude,
               value: 1
             });
-            bounds.push(new L.LatLng(logRecords[0].latitude, logRecords[0].longitude));
+            bounds.push(new L.LatLng(logRecords[i].latitude, logRecords[i].longitude));
           }
         }
         if (coordinates.length > 0) {
