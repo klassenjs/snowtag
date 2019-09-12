@@ -90,21 +90,20 @@ function logRecord(exception) {
                 "id": exception.device.id
             }
         }
-    }, function(LogRecord) {
+    }, logRecords => {
       let coordinates = [];
       let bounds = [];
 
-      for (let i = 0; i < LogRecord.length; i++) {
-        if (LogRecord[i].latitude !== 0 || LogRecord[i].longitude !== 0) {
+      for (let i = 0; i < logRecords.length; i++) {
+        if (logRecords[i].latitude !== 0 || logRecords[i].longitude !== 0) {
           coordinates.push({
-            lat: LogRecord[i].latitude,
-            lon: LogRecord[i].longitude,
+            lat: logRecords[i].latitude,
+            lon: logRecords[i].longitude,
             value: 1
           });
-          bounds.push(new L.LatLng(LogRecord[i].latitude, LogRecord[i].longitude));
+          bounds.push(new L.LatLng(logRecords[i].latitude, logRecords[i].longitude));
         }
       }
-console.log("hi")
       if (coordinates.length > 0) {
         map.fitBounds(bounds);
         heatMapLayer.setLatLngs(coordinates);
