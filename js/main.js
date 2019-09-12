@@ -166,7 +166,6 @@ function logRecord(exception) {
                     }
                 );
         });
-
         for (let x=0; x < logRecords.length; x++){
         console.log(logRecords[0].latitude, logRecords[0].longitude);}
 
@@ -174,7 +173,7 @@ function logRecord(exception) {
         let bounds = [];
 
         for (let i = 0; i < logRecords.length; i++) {
-          if (logRecords[0].latitude != 0 || logRecords[0].longitude != 0) {
+          if (logRecords[i].latitude != 0 || logRecords[i].longitude != 0) {
 
             coordinates.push({
               lat: logRecords[i].latitude,
