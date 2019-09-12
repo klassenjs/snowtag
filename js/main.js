@@ -96,6 +96,8 @@ function logRecord(exception) {
 
       console.log("lat " + logRecords[0].latitude);
       console.log("long " + logRecords[0].longitude);
+      console.log("from " + exception.activeFrom);
+      console.log("to " + exception.activeTo);
 
 
       for (let i = 0; i < logRecords.length; i++) {
@@ -113,7 +115,7 @@ function logRecord(exception) {
       }
       if (coordinates.length > 0) {
         map.fitBounds(bounds);
-        heatMapLayer.setData(coordinates);
+        heatMapLayer.setLatLngs(coordinates);
       } else {
         errorHandler('Not enough data');
       }
