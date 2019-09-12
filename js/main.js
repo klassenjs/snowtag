@@ -181,6 +181,7 @@ console.log("is");
               lat: logRecords[i].latitude,
               lon: logRecords[i].longitude,
               value: 1
+              console.log("nicole");
             });
             bounds.push(new L.LatLng(logRecords[i].latitude, logRecords[i].longitude));
           }
