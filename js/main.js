@@ -139,35 +139,38 @@ function logRecord(exception) {
       console.log(logRecords[x].latitude);}
       console.log(exception.device.id);
 
-        //
-        // api.call("GetAddresses", {
-        //     "coordinates": [{
-        //         "x": logRecords[0].longitude,
-        //         "y": logRecords[0].latitude
-        //     }],
-        //     "movingAddreses": false,
-        //     "hosAddresses": false
-        //
-        // }, function(Address) {
-        //     api.call("Get", {
-        //         "typeName": "Device",
-        //         "search": {
-        //             "id": exception.device.id
-        //         }
-        //     }, function(Device) {
-        //                 api.call("Get", {
-        //                     "typeName": "Rule",
-        //                     "search": {
-        //                         "id": exception.rule.id
-        //                     }
-        //                 }, function(Rule) {
-        //                     console.log(Device[0].name + " was at : " + Address[0].formattedAddress +
-        //                     ", (coordinates: " + logRecords[0].latitude + ", " + logRecords[0].longitude +
-        //                     ") and triggered the " + Rule[0].name + " rule. They were active from" + exception.activeFrom + "to" + exception.activeTo);
-        //                 });
-        //             }
-        //         );
-        // });
+        api.call("GetAddresses", {
+            "coordinates": [{
+                "x": logRecords[0].longitude,
+                "y": logRecords[0].latitude
+            }],
+            "movingAddreses": false,
+            "hosAddresses": false
+
+        }, function(Address) {
+            api.call("Get", {
+                "typeName": "Device",
+                "search": {
+                    "id": exception.device.id
+                }
+            }, function(Device) {
+                        api.call("Get", {
+                            "typeName": "Rule",
+                            "search": {
+                                "id": exception.rule.id
+                            }
+                        }, function(Rule) {
+                          for (var x=0; x < logRecords.length; x++){
+                          console.log(logRecords[x].latitude);}
+                          console.log(exception.device.id);
+                          
+                            console.log(Device[0].name + " was at : " + Address[0].formattedAddress +
+                            ", (coordinates: " + logRecords[0].latitude + ", " + logRecords[0].longitude +
+                            ") and triggered the " + Rule[0].name + " rule. They were active from" + exception.activeFrom + "to" + exception.activeTo);
+                        });
+                    }
+                );
+        });
 
         let coordinates = [];
         let bounds = [];
