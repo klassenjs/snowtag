@@ -184,6 +184,7 @@ function logRecord(exception) {
           }
         }
 console.log("precious");
+console.log(bounds, coordinates);
         if (coordinates.length > 0) {
           map.fitBounds(bounds);
           heatMapLayer.setLatLngs(coordinates);
