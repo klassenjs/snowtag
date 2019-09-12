@@ -178,10 +178,12 @@ function logRecord(exception) {
           if (logRecords[i].latitude != 0 || logRecords[i].longitude != 0) {
 console.log("is");
             coordinates.push({
+              console.log("nicole");
+              
               lat: logRecords[i].latitude,
               lon: logRecords[i].longitude,
               value: 1
-              console.log("nicole");
+
             });
             bounds.push(new L.LatLng(logRecords[i].latitude, logRecords[i].longitude));
           }
