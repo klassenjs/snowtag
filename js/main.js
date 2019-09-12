@@ -107,12 +107,13 @@ function logRecord(exception) {
             value: 1
           });
           bounds.push(new L.LatLng(logRecords[i].latitude, logRecords[i].longitude));
+
           console.log(bounds)
         }
       }
       if (coordinates.length > 0) {
         map.fitBounds(bounds);
-        heatMapLayer.setLatLngs(coordinates);
+        heatMapLayer.setData(coordinates);
       } else {
         errorHandler('Not enough data');
       }
