@@ -64,7 +64,7 @@ console.log(deviceId);
         "typeName": "ExceptionEvent",
         "search": {
             "deviceSearch": {
-                "id": vehicles.id
+                "id": deviceId
             },
             "ruleSearch": {
                 "id": "a1wrQ3PBsTUuNVZ7cqjCjHA",
