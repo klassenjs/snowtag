@@ -82,7 +82,7 @@ console.log(deviceId);
             fromDate: dateFrom.activeFrom,
             toDate: dateFrom.activeTo,
             deviceSearch: {
-                id: deviceId.device.id
+                id: deviceId
             }
         }
     }, function(LogRecord) {
