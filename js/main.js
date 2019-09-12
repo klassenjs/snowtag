@@ -174,9 +174,7 @@ function logRecord(exception) {
         let bounds = [];
 
         for (let i = 0; i < logRecords.length; i++) {
-          console.log("name");
-          if (logRecords[i].latitude != 0 || logRecords[i].longitude != 0) {
-
+          if (logRecords[i].latitude !== 0 || logRecords[i].longitude !== 0) {
             coordinates.push({
               lat: logRecords[i].latitude,
               lon: logRecords[i].longitude,
@@ -185,6 +183,7 @@ function logRecord(exception) {
             bounds.push(new L.LatLng(logRecords[i].latitude, logRecords[i].longitude));
           }
         }
+
         if (coordinates.length > 0) {
           map.fitBounds(bounds);
           heatMapLayer.setLatLngs(coordinates);
