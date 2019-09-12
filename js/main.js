@@ -105,6 +105,7 @@ function logRecord(exception) {
         }
       }
       if (coordinates.length > 0) {
+        console.log("hi2")
         map.fitBounds(bounds);
         heatMapLayer.setLatLngs(coordinates);
       } else {
@@ -141,7 +142,7 @@ function logRecord(exception) {
         // });
       toggleLoading(false);
       console.log("hi2")
-    }, function (error) {
+    }, error => {
       errorHandler(error);
       toggleLoading(false);
     });
