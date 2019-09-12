@@ -93,16 +93,18 @@ function logRecord(exception) {
     }, logRecords => {
       let coordinates = [];
       let bounds = [];
+      console.log(logRecords.latitude);
 
-        if (logRecords.latitude !== 0 || logRecords.longitude !== 0) {
+      for (let i = 0; i < logRecords.length; i++) {
+        if (logRecords[i].latitude !== 0 || logRecords[i].longitude !== 0) {
           coordinates.push({
-            lat: logRecords.latitude,
-            lon: logRecords.longitude,
+            lat: logRecords[i].latitude,
+            lon: logRecords[i].longitude,
             value: 1
           });
-          bounds.push(new L.LatLng(logRecords.latitude, logRecords.longitude));
+          bounds.push(new L.LatLng(logRecords[i].latitude, logRecords[i].longitude));
         }
-
+      }
       if (coordinates.length > 0) {
         map.fitBounds(bounds);
         heatMapLayer.setLatLngs(coordinates);
