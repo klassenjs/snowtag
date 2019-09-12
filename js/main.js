@@ -151,7 +151,7 @@ function logRecord(exception) {
             lon: logRecords[0].longitude,
             value: 1
           });
-          bounds.push(new L.LatLng(logRecords[i].latitude, logRecords[i].longitude));
+          bounds.push(new L.LatLng(logRecords[0].latitude, logRecords[i0.longitude));
         }
       }
 console.log("precious");
