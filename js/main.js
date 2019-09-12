@@ -301,7 +301,7 @@ console.log(2);
       }
 
     },
-    focus(freshApi, freshState) {
+    focus(freshApi) {
       api = freshApi;
       while (elVehicleSelect.firstChild) {
         elVehicleSelect.removeChild(elVehicleSelect.firstChild);
@@ -311,7 +311,7 @@ console.log(4);
         typeName: 'Device',
         search: {
           fromDate: new Date().toISOString(),
-          'groups': freshState.getGroupFilter()
+          'groups': [{'id': 'b27D5'}]
         }
       }, vehicles => {
         if (!vehicles || vehicles.length < 0) {
