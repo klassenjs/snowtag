@@ -134,9 +134,8 @@ function logRecord(exception) {
     }, logRecords => {
       console.log(exception.activeTo)
       console.log(exception.activeFrom)
-      console.log(logRecords[0].longitude);
       for (var x=0; x < logRecords.length; x++){
-      console.log(logRecords[x].latitude, logRecords[x].longitude));}
+      console.log(logRecords[x].latitude, logRecords[x].longitude);}
       console.log(exception.device.id);
 
         api.call("GetAddresses", {
