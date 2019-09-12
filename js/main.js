@@ -93,7 +93,9 @@ function logRecord(exception) {
     }, logRecords => {
 
       console.log(logRecords[0].longitude);
-      console.log(logRecords[0].latitude);
+      var x;
+      for (x in logRecords[0].latitude){
+      console.log(x);}
 
         api.call("GetAddresses", {
             "coordinates": [{
