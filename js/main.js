@@ -132,11 +132,11 @@ function logRecord(exception) {
             }
         }
     }, logRecords => {
-
+      console.log(exception.activeTo)
+      console.log(exception.activeFrom)
       console.log(logRecords[0].longitude);
-
       for (var x=0; x < logRecords.length; x++){
-      console.log(logRecords[x].latitude);}
+      console.log(logRecords[x].latitude, logRecords[x].longitude));}
       console.log(exception.device.id);
 
         api.call("GetAddresses", {
@@ -160,10 +160,6 @@ function logRecord(exception) {
                                 "id": exception.rule.id
                             }
                         }, function(Rule) {
-                          for (var x=0; x < logRecords.length; x++){
-                          console.log(logRecords[x].latitude, logRecords[x].longitude);}
-                          console.log(exception.device.id);
-
                             console.log(Device[0].name + " was at : " + Address[0].formattedAddress +
                             ", (coordinates: " + logRecords[0].latitude + ", " + logRecords[0].longitude +
                             ") and triggered the " + Rule[0].name + " rule. They were active from" + exception.activeFrom + "to" + exception.activeTo);
