@@ -136,7 +136,7 @@ function logRecord(exception) {
       // console.log(exception.activeFrom)
       // for (var x=0; x < logRecords.length; x++){
       // console.log(logRecords[x].latitude, logRecords[x].longitude);}
-      console.log(exception.device.id);
+      // console.log(exception.device.id);
 
         api.call("GetAddresses", {
             "coordinates": [{
@@ -179,10 +179,9 @@ function logRecord(exception) {
               value: 1
             });
             bounds.push(new L.LatLng(logRecords[i].latitude, logRecords[i].longitude));
-
-            console.log(bounds)
           }
         }
+        console.log(coordinates)
         if (coordinates.length > 0) {
           map.fitBounds(bounds);
           heatMapLayer.setLatLngs(coordinates);
