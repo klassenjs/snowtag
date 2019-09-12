@@ -73,16 +73,16 @@ console.log(deviceId);
             fromDate: dateFrom,
             toDate: dateTo
       }
-    }, function(exception) {
+    }, exception => {
       console.log(dateFrom);
-      console.log(deviceId);
+      console.log(dateTo);
     api.call("Get", {
         typeName: "LogRecord",
         search: {
-            fromDate: dateFrom.activeFrom,
-            toDate: dateFrom.activeTo,
+            fromDate: exception.activeFrom,
+            toDate: exception.activeTo,
             deviceSearch: {
-                id: deviceId
+                id: exception.device.id
             }
         }
     }, function(LogRecord) {
@@ -119,7 +119,7 @@ console.log("hi")
             api.call("Get", {
                 "typeName": "Device",
                 "search": {
-                    "id": deviceId
+                    "id": exception.device.id
                 }
             }, function(Device) {
                         api.call("Get", {
