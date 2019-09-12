@@ -166,14 +166,14 @@ function logRecord(exception) {
                     }
                 );
         });
-        for (var x=0; x < logRecords.length; x++){
-        console.log(logRecords[x].latitude, logRecords[x].longitude);}
-        
+        for (let x=0; x < logRecords.length; x++){
+        console.log(logRecords[0].latitude, logRecords[0].longitude);}
+
         let coordinates = [];
         let bounds = [];
 
         for (let i = 0; i < logRecords.length; i++) {
-          if (logRecords[i].latitude !== 0 || logRecords[i].longitude !== 0) {
+          if (logRecords[i].latitude != 0 || logRecords[i].longitude != 0) {
 
             coordinates.push({
               lat: logRecords[i].latitude,
