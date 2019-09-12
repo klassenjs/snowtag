@@ -91,63 +91,57 @@ function logRecord(exception) {
             }
         }
     }, logRecords => {
-      let coordinates = [];
-      let bounds = [];
+        api.call("GetAddresses", {
+            "coordinates": [{
+                "x": logRecords[0].longitude,
+                "y": logRecords[0].latitude
+            }],
+            "movingAddreses": false,
+            "hosAddresses": false
 
-      console.log("lat " + logRecords[0].latitude);
-      console.log("long " + logRecords[0].longitude);
-      console.log("from " + exception.activeFrom);
-      console.log("to " + exception.activeTo);
+        }, function(Address) {
+            api.call("Get", {
+                "typeName": "Device",
+                "search": {
+                    "id": exception.device.id
+                }
+            }, function(Device) {
+                        api.call("Get", {
+                            "typeName": "Rule",
+                            "search": {
+                                "id": exception.rule.id
+                            }
+                        }, function(Rule) {
+                            console.log(Device[0].name + " was at : " + Address[0].formattedAddress +
+                            ", (coordinates: " + logRecords[0].latitude + ", " + logRecords[0].longitude +
+                            ") and triggered the " + Rule[0].name + " rule. They were active from" + exception.activeFrom + "to" + exception.activeTo);
+                        });
+                    }
+                );
+        });
 
+        let coordinates = [];
+        let bounds = [];
 
-      for (let i = 0; i < logRecords.length; i++) {
-        if (logRecords[i].latitude !== 0 || logRecords[i].longitude !== 0) {
+        for (let i = 0; i < logRecords.length; i++) {
+          if (logRecords[i].latitude !== 0 || logRecords[i].longitude !== 0) {
 
-          coordinates.push({
-            lat: logRecords[i].latitude,
-            lon: logRecords[i].longitude,
-            value: 1
-          });
-          bounds.push(new L.LatLng(logRecords[i].latitude, logRecords[i].longitude));
+            coordinates.push({
+              lat: logRecords[i].latitude,
+              lon: logRecords[i].longitude,
+              value: 1
+            });
+            bounds.push(new L.LatLng(logRecords[i].latitude, logRecords[i].longitude));
 
-          console.log(bounds)
+            console.log(bounds)
+          }
         }
-      }
-      if (coordinates.length > 0) {
-        map.fitBounds(bounds);
-        heatMapLayer.setLatLngs(coordinates);
-      } else {
-        errorHandler('Not enough data');
-      }
-        //
-        // api.call("GetAddresses", {
-        //     "coordinates": [{
-        //         "x": LogRecord[0].longitude,
-        //         "y": LogRecord[0].latitude
-        //     }],
-        //     "movingAddreses": false,
-        //     "hosAddresses": false
-        //
-        // }, function(Address) {
-        //     api.call("Get", {
-        //         "typeName": "Device",
-        //         "search": {
-        //             "id": exception.device.id
-        //         }
-        //     }, function(Device) {
-        //                 api.call("Get", {
-        //                     "typeName": "Rule",
-        //                     "search": {
-        //                         "id": exception.rule.id
-        //                     }
-        //                 }, function(Rule) {
-        //                     console.log(Device[0].name + " was at : " + Address[0].formattedAddress +
-        //                     ", (coordinates: " + LogRecord[0].latitude + ", " + LogRecord[0].longitude +
-        //                     ") and triggered the " + Rule[0].name + " rule. They were active from" + exception.activeFrom + "to" + exception.activeTo);
-        //                 });
-        //             }
-        //         );
-        // });
+        if (coordinates.length > 0) {
+          map.fitBounds(bounds);
+          heatMapLayer.setLatLngs(coordinates);
+        } else {
+          errorHandler('Not enough data');
+        }
       toggleLoading(false);
     }, error => {
       errorHandler(error);
