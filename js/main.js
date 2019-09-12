@@ -162,17 +162,6 @@ function logRecord(exception) {
                             console.log(Device[0].name + " was at : " + Address[0].formattedAddress +
                             ", (coordinates: " + logRecords[0].latitude + ", " + logRecords[0].longitude +
                             ") and triggered the " + Rule[0].name + " rule. They were active from" + exception.activeFrom + "to" + exception.activeTo);
-
-                            console.log(exception.activeTo)
-                            console.log(exception.activeFrom)
-                            for (var x=0; x < logRecords.length; x++){
-                            console.log(logRecords[x].latitude, logRecords[x].longitude);}
-                            console.log(exception.device.id);
-
-                            console.log(exception.activeTo)
-                            console.log(exception.activeFrom)
-                            console.log(logRecords[0].latitude, logRecords[0].longitude);
-                            console.log(exception.device.id);
                         });
                     }
                 );
@@ -322,7 +311,7 @@ console.log(4);
         typeName: 'Device',
         search: {
           fromDate: new Date().toISOString(),
-          'groups': [{'id': 'b27D5'}]
+          'groups': freshState.getGroupFilter([{'id': 'b27D5'}])
         }
       }, vehicles => {
         if (!vehicles || vehicles.length < 0) {
