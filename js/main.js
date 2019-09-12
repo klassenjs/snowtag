@@ -311,7 +311,7 @@ console.log(4);
         typeName: 'Device',
         search: {
           fromDate: new Date().toISOString(),
-          'groups': freshState.getGroupFilter([{'id': 'b27D5'}])
+          'groups': freshState.getGroupFilter()
         }
       }, vehicles => {
         if (!vehicles || vehicles.length < 0) {
