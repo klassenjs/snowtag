@@ -171,7 +171,7 @@ function logRecord(exception) {
         let coordinates = [];
         let bounds = [];
 
-        for (let i = 0; i < logRecords.length; i++) {
+        for (let i = 0; i < logRecords[0].length; i++) {
           if (logRecords[i].latitude !== 0 || logRecords[i].longitude !== 0) {
 
             coordinates.push({
