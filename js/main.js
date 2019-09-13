@@ -120,9 +120,6 @@ console.log(7.5);
         for (var i = 0; i < exception.length; i++){
             logRecord(exception[i]);
         }
-    }, error => {
-      errorHandler(error);
-      toggleLoading(false);
     });
 
 console.log(8);
@@ -138,9 +135,6 @@ function logRecord(exception) {
                 "id": exception.device.id
             }
         }
-    }, error => {
-      errorHandler(error);
-      toggleLoading(false);
     }, logRecords => {
         console.log(10);
 
