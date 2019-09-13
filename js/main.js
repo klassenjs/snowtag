@@ -116,23 +116,22 @@ console.log(7.5);
             "fromDate": dateFrom,
             "toDate": dateTo
       }
-    }, function(exception) {
-        for (var i = 0; i < exception.length; i++){
-            logRecord(exception[i]);
+    }, function(result) {
+      var results;
+        for (var i = 0; i < result.length; i++){
+          results = (result[i]);
+            logRecord(results);
         }
-    });
 
-console.log(8);
-
-function logRecord(exception) {
+        function logs(logs) {
   console.log(9);
     api.call("Get", {
         "typeName": "LogRecord",
         "search": {
-            "fromDate": exception.activeFrom,
-            "toDate": exception.activeTo,
+            "fromDate": logs.activeFrom,
+            "toDate": logs.activeTo,
             "deviceSearch": {
-                "id": exception.device.id
+                "id": logs.device.id
             }
         }
     }, logRecords => {
@@ -164,7 +163,7 @@ console.log("precious");
       errorHandler(error);
       toggleLoading(false);
     });
-}
+});
 };
 
   /**
