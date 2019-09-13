@@ -57,8 +57,6 @@ console.log(7.5);
     let dateFrom = new Date(fromValue).toISOString();
     let dateTo = new Date(toValue).toISOString();
 
-exceptionEvent(deviceId, dateFrom, dateTo)
-let exceptionEvent = function(){
  api.call("Get", {
         "typeName": "ExceptionEvent",
         "search": {
@@ -76,7 +74,7 @@ let exceptionEvent = function(){
         for (var i = 0; i < exception.length; i++){
             logRecord(exception[i]);
         }
-    });}
+    });
 
 let logRecord = function (exception) {
     api.call("Get", {
