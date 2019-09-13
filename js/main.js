@@ -57,7 +57,6 @@ console.log(7.5);
     let dateFrom = new Date(fromValue).toISOString();
     let dateTo = new Date(toValue).toISOString();
 
-
  api.call("Get", {
         "typeName": "ExceptionEvent",
         "search": {
@@ -77,7 +76,7 @@ console.log(7.5);
         }
     });
 
-function logRecord(exception) {
+let logRecord = function (exception) {
     api.call("Get", {
         "typeName": "LogRecord",
         "search": {
@@ -112,9 +111,6 @@ function logRecord(exception) {
       errorHandler(error);
       toggleLoading(false);
     });
-}, error => {
-  errorHandler(error);
-  toggleLoading(false);
 }
 };
 
