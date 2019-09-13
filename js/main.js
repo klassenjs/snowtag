@@ -56,68 +56,96 @@ geotab.addin.heatmap = () => {
     let dateTo = new Date(toValue).toISOString();
 
     api.call("Get", {
-           "typeName": "ExceptionEvent",
-           "search": {
-               "deviceSearch": {
-                   "id": deviceId
-               },
-               "ruleSearch": {
-                   "id": "a1wrQ3PBsTUuNVZ7cqjCjHA",
-                   "includeZoneStopRules": false
-               },
-               "fromDate": dateFrom,
-               "toDate": dateTo
-         }
-       }, function(exception) {
-           for (var i = 0; i < exception.length; i++){
-               logRecord(exception[i]);
-           }
-       });
+    "typeName": "ExceptionEvent",
+    "search": {
+        "deviceSearch": {
+            "id": deviceId
+        },
+        "ruleSearch": {
+            "id": "a1wrQ3PBsTUuNVZ7cqjCjHA",
+            "includeZoneStopRules": false
+        },
+        "fromDate": dateFrom,
+        "toDate": dateTo
+        },
+      }, function(result) {
+          var results;
+          for (var i = 0; i < result.length; i++){
+              results = (result[i]);
+              log(results)
+          }
 
-   console.log(8);
+       function log(logs) {
+           console.log(logs)
+      api.call("Get", {
+          "typeName": "LogRecord",
+          "search": {
+              "fromDate": logs.activeFrom,
+              "toDate": logs.activeTo,
+              "deviceSearch": {
+                  "id": logs.device.id
+              }
+          }
+      }, function(logRecords) {
+        console.log(10);
 
-   function logRecord(exception) {
-     console.log(9);
-       api.call("Get", {
-           "typeName": "LogRecord",
-           "search": {
-               "fromDate": exception.activeFrom,
-               "toDate": exception.activeTo,
-               "deviceSearch": {
-                   "id": exception.device.id
-               }
-           }
-       }, logRecords => {
-           console.log(10);
+        let coordinates = [];
+        let bounds = [];
 
-           let coordinates = [];
-           let bounds = [];
+        for (let i = 0; i < logRecords.length; i++) {
+          if (logRecords[i].latitude !== 0 || logRecords[i].longitude !== 0) {
+            coordinates.push({
+              lat: logRecords[i].latitude,
+              lon: logRecords[i].longitude,
+              value: 1
+            });
+            bounds.push(new L.LatLng(logRecords[i].latitude, logRecords[i].longitude));
+          }
+        }
+console.log("precious");
 
-           for (let i = 0; i < logRecords.length; i++) {
-             if (logRecords[i].latitude !== 0 || logRecords[i].longitude !== 0) {
-               coordinates.push({
-                 lat: logRecords[i].latitude,
-                 lon: logRecords[i].longitude,
-                 value: 1
-               });
-               bounds.push(new L.LatLng(logRecords[i].latitude, logRecords[i].longitude));
-             }
-           }
-   console.log("precious");
+        if (coordinates.length > 0) {
+          map.fitBounds(bounds);
+          heatMapLayer.setLatLngs(coordinates);
+        } else {
+          errorHandler('Not enough data');
+        }
+      toggleLoading(false);
 
-           if (coordinates.length > 0) {
-             map.fitBounds(bounds);
-             heatMapLayer.setLatLngs(coordinates);
-           } else {
-             errorHandler('Not enough data');
-           }
-         toggleLoading(false);
-       }, error => {
-         errorHandler(error);
-         toggleLoading(false);
-       });
-   }
-   };
+          // api.call("GetAddresses", {
+          //     "coordinates": [{
+          //         "x": LogRecord[0].longitude,
+          //         "y": LogRecord[0].latitude
+          //     }],
+          //     "movingAddreses": false,
+          //     "hosAddresses": false
+          // }, function(Address) {
+          //     api.call("Get", {
+          //         "typeName": "Device",
+          //         "search": {
+          //             "id": logs.device.id
+          //         }
+          //     }, function(Device) {
+          //                 api.call("Get", {
+          //                     "typeName": "Rule",
+          //                     "search": {
+          //                         "id": logs.rule.id
+          //                     }
+          //                 }, function(Rule) {
+          //                     console.log(Device[0].name + " was at : " + Address[0].formattedAddress +
+          //                     ", (coordinates: " + LogRecord[0].latitude + ", " + LogRecord[0].longitude +
+          //                     ") and triggered the " + Rule[0].name + " rule They were active from " + logs.activeFrom + "to " + logs.activeTo);
+          //                 });
+          //             }
+          //         );
+          // });
+      }, error => {
+        errorHandler(error);
+        toggleLoading(false);
+      });
+       }
+          });
+          };
 
   /**
    * Intialize the user interface
