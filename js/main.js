@@ -41,7 +41,6 @@ console.log(1);
    * Displays the heatmap of a vehicle location history
    */
   let displayHeatMap = function () {
-       console.log(7);
     let deviceId = elVehicleSelect.value;
     let fromValue = elDateFromInput.value;
     let toValue = elDateToInput.value;
@@ -51,11 +50,56 @@ console.log(1);
     if ((deviceId === null) || (fromValue === '') || (toValue === '')) {
       return;
     }
+
     toggleLoading(true);
 
     let dateFrom = new Date(fromValue).toISOString();
     let dateTo = new Date(toValue).toISOString();
 
+console.log(7);
+console.log("hi");
+
+
+  //   api.call('Get', {
+  //     typeName: 'LogRecord',
+  //     search: {
+  //       'deviceSearch': {
+  //         id: deviceId
+  //       },
+  //       fromDate: dateFrom,
+  //       toDate: dateTo
+  //     }
+  //   }, logRecords => {
+  //     let coordinates = [];
+  //     let bounds = [];
+  //
+  //           for (var x=0; x < logRecords.length; x++){
+  //           console.log(logRecords[x].latitude);}
+  //
+  //     for (let i = 0; i < logRecords.length; i++) {
+  //       if (logRecords[i].latitude !== 0 || logRecords[i].longitude !== 0) {
+  //         coordinates.push({
+  //           lat: logRecords[i].latitude,
+  //           lon: logRecords[i].longitude,
+  //           value: 1
+  //         });
+  //         bounds.push(new L.LatLng(logRecords[i].latitude, logRecords[i].longitude));
+  //       }
+  //     }
+  //
+  //     if (coordinates.length > 0) {
+  //       map.fitBounds(bounds);
+  //       heatMapLayer.setLatLngs(coordinates);
+  //     } else {
+  //       errorHandler('Not enough data to display');
+  //     }
+  //
+  //     toggleLoading(false);
+  //   }, error => {
+  //     errorHandler(error);
+  //     toggleLoading(false);
+  //   });
+  // };
 
  api.call("Get", {
         "typeName": "ExceptionEvent",
@@ -74,8 +118,9 @@ console.log(1);
         for (var i = 0; i < exception.length; i++){
             logRecord(exception[i]);
         }
-    });
-
+    }
+    );
+console.log("there");
 function logRecord(exception) {
     api.call("Get", {
         "typeName": "LogRecord",
@@ -87,6 +132,44 @@ function logRecord(exception) {
             }
         }
     }, logRecords => {
+      // console.log(exception.activeTo)
+      // console.log(exception.activeFrom)
+      // for (var x=0; x < logRecords.length; x++){
+      // console.log(logRecords[x].latitude, logRecords[x].longitude);}
+      // console.log(exception.device.id);
+
+        // api.call("GetAddresses", {
+        //     "coordinates": [{
+        //         "x": logRecords[0].longitude,
+        //         "y": logRecords[0].latitude
+        //     }],
+        //     "movingAddreses": false,
+        //     "hosAddresses": false
+        //
+        // }, function(Address) {
+        //     api.call("Get", {
+        //         "typeName": "Device",
+        //         "search": {
+        //             "id": exception.device.id
+        //         }
+        //     }, function(Device) {
+        //                 api.call("Get", {
+        //                     "typeName": "Rule",
+        //                     "search": {
+        //                         "id": exception.rule.id
+        //                     }
+        //                 }, function(Rule) {
+        //                     console.log(Device[0].name + " was at : " + Address[0].formattedAddress +
+        //                     ", (coordinates: " + logRecords[0].latitude + ", " + logRecords[0].longitude +
+        //                     ") and triggered the " + Rule[0].name + " rule. They were active from" + exception.activeFrom + "to" + exception.activeTo);
+        //                 });
+        //             }
+        //         );
+        // });
+        // console.log("my");
+        // for (let x=0; x < logRecords.length; x++){
+        // console.log(logRecords[0].latitude, logRecords[0].longitude);}
+
         let coordinates = [];
         let bounds = [];
 
@@ -100,9 +183,8 @@ function logRecord(exception) {
             bounds.push(new L.LatLng(logRecords[i].latitude, logRecords[i].longitude));
           }
         }
-
-        console.log(coordinates)
-        console.log(bounds)
+console.log("precious");
+console.log(bounds, coordinates);
         if (coordinates.length > 0) {
           map.fitBounds(bounds);
           heatMapLayer.setLatLngs(coordinates);
