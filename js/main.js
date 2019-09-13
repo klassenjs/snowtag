@@ -106,7 +106,7 @@ let logRecord = function (exception) {
         } else {
           errorHandler('Not enough data');
         }
-      toggleLoading(false);
+      // toggleLoading(false);
     }, error => {
       errorHandler(error);
       toggleLoading(false);
