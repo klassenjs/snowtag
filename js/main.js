@@ -59,147 +59,112 @@ console.log(1);
 console.log(7);
 
 
-  //   api.call('Get', {
-  //     typeName: 'LogRecord',
-  //     search: {
-  //       'deviceSearch': {
-  //         id: deviceId
-  //       },
-  //       fromDate: dateFrom,
-  //       toDate: dateTo
-  //     }
-  //   }, logRecords => {
-  //     let coordinates = [];
-  //     let bounds = [];
-  //
-  //           for (var x=0; x < logRecords.length; x++){
-  //           console.log(logRecords[x].latitude);}
-  //
-  //     for (let i = 0; i < logRecords.length; i++) {
-  //       if (logRecords[i].latitude !== 0 || logRecords[i].longitude !== 0) {
-  //         coordinates.push({
-  //           lat: logRecords[i].latitude,
-  //           lon: logRecords[i].longitude,
-  //           value: 1
-  //         });
-  //         bounds.push(new L.LatLng(logRecords[i].latitude, logRecords[i].longitude));
-  //       }
-  //     }
-  //
-  //     if (coordinates.length > 0) {
-  //       map.fitBounds(bounds);
-  //       heatMapLayer.setLatLngs(coordinates);
-  //     } else {
-  //       errorHandler('Not enough data to display');
-  //     }
-  //
-  //     toggleLoading(false);
-  //   }, error => {
-  //     errorHandler(error);
-  //     toggleLoading(false);
-  //   });
-  // };
-
- api.call("Get", {
-        "typeName": "ExceptionEvent",
-        "search": {
-            "deviceSearch": {
-                "id": deviceId
-            },
-            "ruleSearch": {
-                "id": "a1wrQ3PBsTUuNVZ7cqjCjHA",
-                "includeZoneStopRules": false
-            },
-            "fromDate": dateFrom,
-            "toDate": dateTo
+    api.call('Get', {
+      typeName: 'LogRecord',
+      search: {
+        'deviceSearch': {
+          id: deviceId
+        },
+        fromDate: dateFrom,
+        toDate: dateTo
       }
-    }, function(exception) {
-        for (var i = 0; i < exception.length; i++){
-            logRecord(exception[i]);
-        }
-    }
-    );
-console.log(8);
-
-function logRecord(exception) {
-  console.log(9);
-    api.call("Get", {
-        "typeName": "LogRecord",
-        "search": {
-            "fromDate": exception.activeFrom,
-            "toDate": exception.activeTo,
-            "deviceSearch": {
-                "id": exception.device.id
-            }
-        }
     }, logRecords => {
-        console.log(10);
-      // console.log(exception.activeTo)
-      // console.log(exception.activeFrom)
-      // for (var x=0; x < logRecords.length; x++){
-      // console.log(logRecords[x].latitude, logRecords[x].longitude);}
-      // console.log(exception.device.id);
+      console.log(10)
+      let coordinates = [];
+      let bounds = [];
 
-        // api.call("GetAddresses", {
-        //     "coordinates": [{
-        //         "x": logRecords[0].longitude,
-        //         "y": logRecords[0].latitude
-        //     }],
-        //     "movingAddreses": false,
-        //     "hosAddresses": false
-        //
-        // }, function(Address) {
-        //     api.call("Get", {
-        //         "typeName": "Device",
-        //         "search": {
-        //             "id": exception.device.id
-        //         }
-        //     }, function(Device) {
-        //                 api.call("Get", {
-        //                     "typeName": "Rule",
-        //                     "search": {
-        //                         "id": exception.rule.id
-        //                     }
-        //                 }, function(Rule) {
-        //                     console.log(Device[0].name + " was at : " + Address[0].formattedAddress +
-        //                     ", (coordinates: " + logRecords[0].latitude + ", " + logRecords[0].longitude +
-        //                     ") and triggered the " + Rule[0].name + " rule. They were active from" + exception.activeFrom + "to" + exception.activeTo);
-        //                 });
-        //             }
-        //         );
-        // });
-        // console.log("my");
-        // for (let x=0; x < logRecords.length; x++){
-        // console.log(logRecords[0].latitude, logRecords[0].longitude);}
-
-        let coordinates = [];
-        let bounds = [];
-
-        for (let i = 0; i < logRecords.length; i++) {
-          if (logRecords[i].latitude !== 0 || logRecords[i].longitude !== 0) {
-            coordinates.push({
-              lat: logRecords[i].latitude,
-              lon: logRecords[i].longitude,
-              value: 1
-            });
-            bounds.push(new L.LatLng(logRecords[i].latitude, logRecords[i].longitude));
-          }
+            for (var x=0; x < logRecords.length; x++){
+            console.log(logRecords[x].latitude);}
+  console.log(11)
+      for (let i = 0; i < logRecords.length; i++) {
+        if (logRecords[i].latitude !== 0 || logRecords[i].longitude !== 0) {
+          coordinates.push({
+            lat: logRecords[i].latitude,
+            lon: logRecords[i].longitude,
+            value: 1
+          });
+          bounds.push(new L.LatLng(logRecords[i].latitude, logRecords[i].longitude));
         }
-console.log("precious");
+      }
+  console.log(12)
+      if (coordinates.length > 0) {
+        map.fitBounds(bounds);
+        heatMapLayer.setLatLngs(coordinates);
+      } else {
+        errorHandler('Not enough data to display');
+      }
 
-        if (coordinates.length > 0) {
-          map.fitBounds(bounds);
-          heatMapLayer.setLatLngs(coordinates);
-        } else {
-          errorHandler('Not enough data');
-        }
       toggleLoading(false);
     }, error => {
+      console.log(13)
       errorHandler(error);
       toggleLoading(false);
     });
-}
-};
+  };
+
+//  api.call("Get", {
+//         "typeName": "ExceptionEvent",
+//         "search": {
+//             "deviceSearch": {
+//                 "id": deviceId
+//             },
+//             "ruleSearch": {
+//                 "id": "a1wrQ3PBsTUuNVZ7cqjCjHA",
+//                 "includeZoneStopRules": false
+//             },
+//             "fromDate": dateFrom,
+//             "toDate": dateTo
+//       }
+//     }, function(exception) {
+//         for (var i = 0; i < exception.length; i++){
+//             logRecord(exception[i]);
+//         }
+//     }
+//     );
+// console.log(8);
+//
+// function logRecord(exception) {
+//   console.log(9);
+//     api.call("Get", {
+//         "typeName": "LogRecord",
+//         "search": {
+//             "fromDate": exception.activeFrom,
+//             "toDate": exception.activeTo,
+//             "deviceSearch": {
+//                 "id": exception.device.id
+//             }
+//         }
+//     }, logRecords => {
+//         console.log(10);
+//
+//         let coordinates = [];
+//         let bounds = [];
+//
+//         for (let i = 0; i < logRecords.length; i++) {
+//           if (logRecords[i].latitude !== 0 || logRecords[i].longitude !== 0) {
+//             coordinates.push({
+//               lat: logRecords[i].latitude,
+//               lon: logRecords[i].longitude,
+//               value: 1
+//             });
+//             bounds.push(new L.LatLng(logRecords[i].latitude, logRecords[i].longitude));
+//           }
+//         }
+// console.log("precious");
+//
+//         if (coordinates.length > 0) {
+//           map.fitBounds(bounds);
+//           heatMapLayer.setLatLngs(coordinates);
+//         } else {
+//           errorHandler('Not enough data');
+//         }
+//       toggleLoading(false);
+//     }, error => {
+//       errorHandler(error);
+//       toggleLoading(false);
+//     });
+// }
+// };
 
   /**
    * Intialize the user interface
