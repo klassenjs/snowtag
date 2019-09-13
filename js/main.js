@@ -57,6 +57,7 @@ console.log(7.5);
     let dateFrom = new Date(fromValue).toISOString();
     let dateTo = new Date(toValue).toISOString();
 
+
  api.call("Get", {
         "typeName": "ExceptionEvent",
         "search": {
@@ -76,7 +77,7 @@ console.log(7.5);
         }
     });
 
-let logRecord = function (exception) {
+function logRecord(exception) {
     api.call("Get", {
         "typeName": "LogRecord",
         "search": {
@@ -106,7 +107,7 @@ let logRecord = function (exception) {
         } else {
           errorHandler('Not enough data');
         }
-      // toggleLoading(false);
+      toggleLoading(false);
     }, error => {
       errorHandler(error);
       toggleLoading(false);
