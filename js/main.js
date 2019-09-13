@@ -56,63 +56,68 @@ geotab.addin.heatmap = () => {
     let dateTo = new Date(toValue).toISOString();
 
     api.call("Get", {
-          "typeName": "ExceptionEvent",
-          "search": {
-              "deviceSearch": {
-                  "id": deviceId
-              },
-              "ruleSearch": {
-                  "id": "a1wrQ3PBsTUuNVZ7cqjCjHA",
-                  "includeZoneStopRules": false
-              },
-              "fromDate": dateFrom,
-              "toDate": dateTo
-        }
-      }, function(exception) {
-          for (var i = 0; i < exception.length; i++){
-              logRecord(exception[i]);
-          }
-      });
+           "typeName": "ExceptionEvent",
+           "search": {
+               "deviceSearch": {
+                   "id": deviceId
+               },
+               "ruleSearch": {
+                   "id": "a1wrQ3PBsTUuNVZ7cqjCjHA",
+                   "includeZoneStopRules": false
+               },
+               "fromDate": dateFrom,
+               "toDate": dateTo
+         }
+       }, function(exception) {
+           for (var i = 0; i < exception.length; i++){
+               logRecord(exception[i]);
+           }
+       });
 
-  function logRecord(exception) {
-      api.call("Get", {
-          "typeName": "LogRecord",
-          "search": {
-              "fromDate": exception.activeFrom,
-              "toDate": exception.activeTo,
-              "deviceSearch": {
-                  "id": exception.device.id
-              }
-          }
-      }, logRecords => {
-          let coordinates = [];
-          let bounds = [];
+   console.log(8);
 
-          for (let i = 0; i < logRecords.length; i++) {
-            if (logRecords[i].latitude !== 0 || logRecords[i].longitude !== 0) {
-              coordinates.push({
-                lat: logRecords[i].latitude,
-                lon: logRecords[i].longitude,
-                value: 1
-              });
-              bounds.push(new L.LatLng(logRecords[i].latitude, logRecords[i].longitude));
-            }
-          }
-  console.log("well")
-          if (coordinates.length > 0) {
-            map.fitBounds(bounds);
-            console.log("hi")
-            heatMapLayer.setLatLngs(coordinates);
-          } else {
-            errorHandler('Not enough data');
-          }
-        toggleLoading(false);
-      }, error => {
-        errorHandler(error);
-        toggleLoading(false);
-      });
-  }
-  };
+   function logRecord(exception) {
+     console.log(9);
+       api.call("Get", {
+           "typeName": "LogRecord",
+           "search": {
+               "fromDate": exception.activeFrom,
+               "toDate": exception.activeTo,
+               "deviceSearch": {
+                   "id": exception.device.id
+               }
+           }
+       }, logRecords => {
+           console.log(10);
+
+           let coordinates = [];
+           let bounds = [];
+
+           for (let i = 0; i < logRecords.length; i++) {
+             if (logRecords[i].latitude !== 0 || logRecords[i].longitude !== 0) {
+               coordinates.push({
+                 lat: logRecords[i].latitude,
+                 lon: logRecords[i].longitude,
+                 value: 1
+               });
+               bounds.push(new L.LatLng(logRecords[i].latitude, logRecords[i].longitude));
+             }
+           }
+   console.log("precious");
+
+           if (coordinates.length > 0) {
+             map.fitBounds(bounds);
+             heatMapLayer.setLatLngs(coordinates);
+           } else {
+             errorHandler('Not enough data');
+           }
+         toggleLoading(false);
+       }, error => {
+         errorHandler(error);
+         toggleLoading(false);
+       });
+   }
+   };
 
   /**
    * Intialize the user interface
