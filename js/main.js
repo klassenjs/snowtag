@@ -58,51 +58,6 @@ console.log(7.5);
     let dateTo = new Date(toValue).toISOString();
 
 
-
-
-  //   api.call('Get', {
-  //     typeName: 'LogRecord',
-  //     search: {
-  //       'deviceSearch': {
-  //         id: deviceId
-  //       },
-  //       fromDate: dateFrom,
-  //       toDate: dateTo
-  //     }
-  //   }, logRecords => {
-  //     console.log(10)
-  //     let coordinates = [];
-  //     let bounds = [];
-  //
-  //           for (var x=0; x < logRecords.length; x++){
-  //           console.log(logRecords[x].latitude);}
-  // console.log(11)
-  //     for (let i = 0; i < logRecords.length; i++) {
-  //       if (logRecords[i].latitude !== 0 || logRecords[i].longitude !== 0) {
-  //         coordinates.push({
-  //           lat: logRecords[i].latitude,
-  //           lon: logRecords[i].longitude,
-  //           value: 1
-  //         });
-  //         bounds.push(new L.LatLng(logRecords[i].latitude, logRecords[i].longitude));
-  //       }
-  //     }
-  // console.log(12)
-  //     if (coordinates.length > 0) {
-  //       map.fitBounds(bounds);
-  //       heatMapLayer.setLatLngs(coordinates);
-  //     } else {
-  //       errorHandler('Not enough data to display');
-  //     }
-  //
-  //     toggleLoading(false);
-  //   }, error => {
-  //     console.log(13)
-  //     errorHandler(error);
-  //     toggleLoading(false);
-  //   });
-  // };
-
  api.call("Get", {
         "typeName": "ExceptionEvent",
         "search": {
@@ -146,10 +101,8 @@ function logRecord(exception) {
             bounds.push(new L.LatLng(logRecords[i].latitude, logRecords[i].longitude));
           }
         }
-console.log("well")
         if (coordinates.length > 0) {
           map.fitBounds(bounds);
-          console.log("hi")
           heatMapLayer.setLatLngs(coordinates);
         } else {
           errorHandler('Not enough data');
@@ -159,6 +112,9 @@ console.log("well")
       errorHandler(error);
       toggleLoading(false);
     });
+}, error => {
+  errorHandler(error);
+  toggleLoading(false);
 }
 };
 
