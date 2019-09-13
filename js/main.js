@@ -89,6 +89,11 @@ function logRecord(exception) {
         }
     }, logRecords => {
 
+      console.log("my");
+  for (let x=0; x < logRecords.length; x++){
+  console.log(logRecords[0].latitude, logRecords[0].longitude);}
+
+
         let coordinates = [];
          let bounds = [];
 
