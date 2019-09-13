@@ -122,10 +122,7 @@ console.log(7.5);
         }
     });
 
-console.log(8);
-
 function logRecord(exception) {
-  console.log(9);
     api.call("Get", {
         "typeName": "LogRecord",
         "search": {
@@ -136,8 +133,6 @@ function logRecord(exception) {
             }
         }
     }, logRecords => {
-        console.log(10);
-
         let coordinates = [];
         let bounds = [];
 
@@ -151,10 +146,10 @@ function logRecord(exception) {
             bounds.push(new L.LatLng(logRecords[i].latitude, logRecords[i].longitude));
           }
         }
-console.log("precious");
-
+console.log("well")
         if (coordinates.length > 0) {
           map.fitBounds(bounds);
+          console.log("hi")
           heatMapLayer.setLatLngs(coordinates);
         } else {
           errorHandler('Not enough data');
