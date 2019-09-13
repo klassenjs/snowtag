@@ -57,7 +57,6 @@ console.log(1);
     let dateTo = new Date(toValue).toISOString();
 
 console.log(7);
-console.log("hi");
 
 
   //   api.call('Get', {
@@ -120,8 +119,10 @@ console.log("hi");
         }
     }
     );
-console.log("there");
+console.log(8);
+
 function logRecord(exception) {
+  console.log(9);
     api.call("Get", {
         "typeName": "LogRecord",
         "search": {
@@ -132,6 +133,7 @@ function logRecord(exception) {
             }
         }
     }, logRecords => {
+        console.log(10);
       // console.log(exception.activeTo)
       // console.log(exception.activeFrom)
       // for (var x=0; x < logRecords.length; x++){
@@ -181,12 +183,10 @@ function logRecord(exception) {
               value: 1
             });
             bounds.push(new L.LatLng(logRecords[i].latitude, logRecords[i].longitude));
-          } else {
-            errorHandler('Not enough data');
           }
         }
-// console.log("precious");
-// console.log(bounds, coordinates);
+console.log("precious");
+
         if (coordinates.length > 0) {
           map.fitBounds(bounds);
           heatMapLayer.setLatLngs(coordinates);
