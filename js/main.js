@@ -181,10 +181,12 @@ function logRecord(exception) {
               value: 1
             });
             bounds.push(new L.LatLng(logRecords[i].latitude, logRecords[i].longitude));
+          } else {
+            errorHandler('Not enough data');
           }
         }
-console.log("precious");
-console.log(bounds, coordinates);
+// console.log("precious");
+// console.log(bounds, coordinates);
         if (coordinates.length > 0) {
           map.fitBounds(bounds);
           heatMapLayer.setLatLngs(coordinates);
