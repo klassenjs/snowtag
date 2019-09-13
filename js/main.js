@@ -188,79 +188,15 @@ console.log("precious");
           //             }
           //         );
           // });
-      }, error => {
-        errorHandler(error);
-        toggleLoading(false);
-      });
+      }
+    );
+       }, error => {
+         errorHandler(error);
+         toggleLoading(false);
        }
           });
           };
 
-//
-//
-//
-//  api.call("Get", {
-//         "typeName": "ExceptionEvent",
-//         "search": {
-//             "deviceSearch": {
-//                 "id": deviceId
-//             },
-//             "ruleSearch": {
-//                 "id": "a1wrQ3PBsTUuNVZ7cqjCjHA",
-//                 "includeZoneStopRules": false
-//             },
-//             "fromDate": dateFrom,
-//             "toDate": dateTo
-//       }
-//     }, function(result) {
-//       var results;
-//         for (var i = 0; i < result.length; i++){
-//           results = (result[i]);
-//             logRecord(results);
-//         }
-//
-//         function logs(logs) {
-//   console.log(9);
-//     api.call("Get", {
-//         "typeName": "LogRecord",
-//         "search": {
-//             "fromDate": logs.activeFrom,
-//             "toDate": logs.activeTo,
-//             "deviceSearch": {
-//                 "id": logs.device.id
-//             }
-//         }
-//     }, logRecords => {
-//         console.log(10);
-//
-//         let coordinates = [];
-//         let bounds = [];
-//
-//         for (let i = 0; i < logRecords.length; i++) {
-//           if (logRecords[i].latitude !== 0 || logRecords[i].longitude !== 0) {
-//             coordinates.push({
-//               lat: logRecords[i].latitude,
-//               lon: logRecords[i].longitude,
-//               value: 1
-//             });
-//             bounds.push(new L.LatLng(logRecords[i].latitude, logRecords[i].longitude));
-//           }
-//         }
-// console.log("precious");
-//
-//         if (coordinates.length > 0) {
-//           map.fitBounds(bounds);
-//           heatMapLayer.setLatLngs(coordinates);
-//         } else {
-//           errorHandler('Not enough data');
-//         }
-//       toggleLoading(false);
-//     }, error => {
-//       errorHandler(error);
-//       toggleLoading(false);
-//     });
-// });
-// };
 
   /**
    * Intialize the user interface
