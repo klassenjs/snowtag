@@ -51,7 +51,6 @@ console.log(1);
     if ((deviceId === null) || (fromValue === '') || (toValue === '')) {
       return;
     }
-console.log(7.5);
     toggleLoading(true);
 
     let dateFrom = new Date(fromValue).toISOString();
@@ -101,6 +100,9 @@ function logRecord(exception) {
             bounds.push(new L.LatLng(logRecords[i].latitude, logRecords[i].longitude));
           }
         }
+
+        console.log(coordinates)
+        console.log(bounds)
         if (coordinates.length > 0) {
           map.fitBounds(bounds);
           heatMapLayer.setLatLngs(coordinates);
