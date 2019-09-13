@@ -40,8 +40,8 @@ console.log(1);
   /**
    * Displays the heatmap of a vehicle location history
    */
-   console.log(7);
   let displayHeatMap = function () {
+       console.log(7);
     let deviceId = elVehicleSelect.value;
     let fromValue = elDateFromInput.value;
     let toValue = elDateToInput.value;
@@ -120,10 +120,7 @@ console.log(7.5);
         for (var i = 0; i < exception.length; i++){
             logRecord(exception[i]);
         }
-    }, errorHandler);
-    setTimeout(() => {
-      map.invalidateSize();
-    }, 200);
+    });
 
 console.log(8);
 
