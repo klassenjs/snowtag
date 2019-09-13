@@ -40,6 +40,7 @@ console.log(1);
   /**
    * Displays the heatmap of a vehicle location history
    */
+   console.log(7);
   let displayHeatMap = function () {
     let deviceId = elVehicleSelect.value;
     let fromValue = elDateFromInput.value;
@@ -50,13 +51,13 @@ console.log(1);
     if ((deviceId === null) || (fromValue === '') || (toValue === '')) {
       return;
     }
-
+console.log(7.5);
     toggleLoading(true);
 
     let dateFrom = new Date(fromValue).toISOString();
     let dateTo = new Date(toValue).toISOString();
 
-console.log(7);
+
 
 
   //   api.call('Get', {
