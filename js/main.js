@@ -141,7 +141,6 @@ function userScreen(exception) {
 
 
 function heatmap(logRecords) {
-
            let coordinates = [];
            let bounds = [];
 
@@ -155,7 +154,6 @@ function heatmap(logRecords) {
                bounds.push(new L.LatLng(logRecords[i].latitude, logRecords[i].longitude));
              }
            }
-   console.log("precious");
 
            if (coordinates.length > 0) {
              map.fitBounds(bounds);
@@ -167,8 +165,7 @@ function heatmap(logRecords) {
        }, error => {
          errorHandler(error);
          toggleLoading(false);
-       });
-   }
+       };
    };
 
   /**
