@@ -85,8 +85,7 @@ geotab.addin.heatmap = () => {
                }
            }
        }, logRecords => {
-         console.log(logRecords[i].latitude)
-         console.log(logRecords[i].longitude)
+         console.log(logRecords)
 
            let coordinates = [];
            let bounds = [];
@@ -128,7 +127,6 @@ geotab.addin.heatmap = () => {
     });
 
     L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/streets-v10/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZ2VvdGFiIiwiYSI6ImNpd2NlaW02MjAxc28yeW9idTR3dmRxdTMifQ.ZH0koA2g2YMMBOcx6EYbwQ').addTo(map);
-console.log(3);
     heatMapLayer = L.heatLayer({
       radius: {
         value: 24,
@@ -184,7 +182,7 @@ console.log(3);
       displayHeatMap();
     });
   };
-console.log(2);
+
   /**
    * Sort named entities
    * @param {object} a - The left comparison named entity
