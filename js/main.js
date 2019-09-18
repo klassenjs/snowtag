@@ -98,7 +98,6 @@ geotab.addin.heatmap = () => {
                  value: 1
                });
                bounds.push(new L.LatLng(newLogs.latitude, newLogs.longitude));
-               console.log(bounds)
              }
 
            if (coordinates.length > 0) {
