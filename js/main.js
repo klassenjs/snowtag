@@ -94,14 +94,12 @@ geotab.addin.heatmap = () => {
            let bounds = [];
 
            for (let i = 0; i < newLogs.length; i++) {
-             if (lat.latitude !== 0 || lon.longitude !== 0) {
                coordinates.push({
                  lat: lat.latitude,
                  lon: lon.longitude,
                  value: 1
                });
                bounds.push(new L.LatLng(lat.latitude, lon.longitude));
-             }
            }
 
            if (coordinates.length > 0) {
