@@ -68,6 +68,7 @@
                  timeDisplay.textContent = moment().format("lll");
              }
          };
+
          var getVehicles = function (finishedCallback) {
              api.call("Get", {
                  typeName: "Device",
