@@ -56,44 +56,114 @@ geotab.addin.heatmap = () => {
     let dateFrom = new Date(fromValue).toISOString();
     let dateTo = new Date(toValue).toISOString();
 
-    api.call('Get', {
-      typeName: 'LogRecord',
-      resultsLimit: 10000,
-      search: {
-        deviceSearch: {
-          id: deviceId
-        },
-        fromDate: dateFrom,
-        toDate: dateTo
-      }
-    }, logRecords => {
-      let coordinates = [];
-      let bounds = [];
 
-      for (let i = 0; i < logRecords.length; i++) {
-        if (logRecords[i].latitude !== 0 || logRecords[i].longitude !== 0) {
-          coordinates.push({
-            lat: logRecords[i].latitude,
-            lon: logRecords[i].longitude,
-            value: 1
-          });
-          bounds.push(new L.LatLng(logRecords[i].latitude, logRecords[i].longitude));
-        }
-      }
-
-      if (coordinates.length > 0) {
-        map.fitBounds(bounds);
-        heatMapLayer.setLatLngs(coordinates);
-      } else {
-        errorHandler('Not enough data to display');
-      }
-
-      toggleLoading(false);
-    }, error => {
-      errorHandler(error);
-      toggleLoading(false);
+      api.call("Get", {
+      "typeName": "ExceptionEvent",
+      "search": {
+          "deviceSearch": {
+              "id": deviceId
+          },
+          "ruleSearch": {
+              "id": "a1wrQ3PBsTUuNVZ7cqjCjHA",
+            "includeZoneStopRules": false
+          },
+          "fromDate": dateFrom,
+          "toDate": dateTo
+    }
+    }, function(exception) {
+    for (var i = 0; i < exception.length; i++){
+      if (exception[i].length !== 0){
+      one(exception[i]);
+      // userScreen(exception[i]);
+    } else {
+      return console.error("No results");
+    }
+    }
     });
-  };
+
+    function one(a){
+    api.call("Get", {
+        "typeName": "LogRecord",
+        "search": {
+            "fromDate": a.activeFrom,
+            "toDate": a.activeTo,
+            "deviceSearch": {
+                "id": a.device.id
+            }
+        }
+    }, function(exception) {
+        heatmap(exception[0]);
+    })
+   }
+
+   function heatmap(logRecords){
+       console.log(logRecords.latitude)
+       console.log(logRecords.longitude)
+
+       let coordinates = [];
+       let bounds = [];
+
+       for (let i = 0; i < logRecords.length; i++) {
+         if (logRecords[i].latitude !== 0 || logRecords[i].longitude !== 0) {
+           coordinates.push({
+             lat: logRecords[i].latitude,
+             lon: logRecords[i].longitude,
+             value: 1
+           });
+           bounds.push(new L.LatLng(logRecords[i].latitude, logRecords[i].longitude));
+         }
+       }
+
+       if (coordinates.length > 0) {
+         map.fitBounds(bounds);
+         heatMapLayer.setLatLngs(coordinates);
+       } else {
+         errorHandler('Not enough data to display');
+       }
+       toggleLoading(false);
+   }
+};
+
+
+
+
+    // api.call('Get', {
+    //   typeName: 'LogRecord',
+    //   resultsLimit: 10000,
+    //   search: {
+    //     deviceSearch: {
+    //       id: deviceId
+    //     },
+    //     fromDate: dateFrom,
+    //     toDate: dateTo
+    //   }
+    // }, logRecords => {
+    //   let coordinates = [];
+    //   let bounds = [];
+    //
+    //   for (let i = 0; i < logRecords.length; i++) {
+    //     if (logRecords[i].latitude !== 0 || logRecords[i].longitude !== 0) {
+    //       coordinates.push({
+    //         lat: logRecords[i].latitude,
+    //         lon: logRecords[i].longitude,
+    //         value: 1
+    //       });
+    //       bounds.push(new L.LatLng(logRecords[i].latitude, logRecords[i].longitude));
+    //     }
+    //   }
+    //
+    //   if (coordinates.length > 0) {
+    //     map.fitBounds(bounds);
+    //     heatMapLayer.setLatLngs(coordinates);
+    //   } else {
+    //     errorHandler('Not enough data to display');
+    //   }
+    //
+    //   toggleLoading(false);
+    // }, error => {
+    //   errorHandler(error);
+    //   toggleLoading(false);
+    // });
 
   /**
    * Intialize the user interface
@@ -194,7 +264,7 @@ geotab.addin.heatmap = () => {
           callback();
         });
       } else {
-        initializeInterface({ longitude: -79.709441, latitude: 43.434497 });
+        initializeInterface({ longitude: -93.1306, latitude: 44.9612 });
         callback();
       }
 
