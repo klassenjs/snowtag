@@ -91,13 +91,13 @@ geotab.addin.heatmap = () => {
            let coordinates = [];
            let bounds = [];
 
-             if (newLogs[i].latitude !== 0 || newLogs[i].longitude !== 0) {
+             if (newLogs.latitude !== 0 || newLogs.longitude !== 0) {
                coordinates.push({
-                 lat: newLogs[i].latitude,
-                 lon: newLogs[i].longitude,
+                 lat: newLogs.latitude,
+                 lon: newLogs.longitude,
                  value: 1
                });
-               bounds.push(new L.LatLng(newLogs[i].latitude, newLogs[i].longitude));
+               bounds.push(new L.LatLng(newLogs.latitude, newLogs.longitude));
              }
              console.log(bounds)
              console.log(coordinates)
