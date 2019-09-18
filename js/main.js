@@ -85,8 +85,9 @@ geotab.addin.heatmap = () => {
                }
            }
        }, logRecords => {
-           console.log(10);
-
+         console.log(logRecords.latitude)
+         console.log(logRecords.longitude)
+         
            let coordinates = [];
            let bounds = [];
 
