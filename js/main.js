@@ -14,7 +14,6 @@ geotab.addin.heatmap = () => {
   let elDateToInput;
   let elError;
   let elLoading;
-
   /**
    * Display error message
    * @param {string} message - The error message.
@@ -40,7 +39,7 @@ geotab.addin.heatmap = () => {
   /**
    * Displays the heatmap of a vehicle location history
    */
-  let displayHeatMap = () => {
+  let displayHeatMap = function () {
     let deviceId = elVehicleSelect.value;
     let fromValue = elDateFromInput.value;
     let toValue = elDateToInput.value;
@@ -56,112 +55,68 @@ geotab.addin.heatmap = () => {
     let dateFrom = new Date(fromValue).toISOString();
     let dateTo = new Date(toValue).toISOString();
 
-
-      api.call("Get", {
-      "typeName": "ExceptionEvent",
-      "search": {
-          "deviceSearch": {
-              "id": deviceId
-          },
-          "ruleSearch": {
-              "id": "a1wrQ3PBsTUuNVZ7cqjCjHA",
-            "includeZoneStopRules": false
-          },
-          "fromDate": dateFrom,
-          "toDate": dateTo
-    }
-    }, function(exception) {
-    for (var i = 0; i < exception.length; i++){
-      if (exception[i].length !== 0){
-      one(exception[i]);
-      // userScreen(exception[i]);
-    } else {
-      return console.error("No results");
-    }
-    }
-    });
-
-    function one(a){
     api.call("Get", {
-        "typeName": "LogRecord",
-        "search": {
-            "fromDate": a.activeFrom,
-            "toDate": a.activeTo,
-            "deviceSearch": {
-                "id": a.device.id
-            }
-        }
-    }, function(exception) {
-        heatmap(exception[0]);
-    })
-   }
-
-   function heatmap(logRecords){
-       console.log(logRecords.latitude)
-       console.log(logRecords.longitude)
-
-       let coordinates = [];
-       let bounds = [];
-
-         if (logRecords[i].latitude !== 0 || logRecords[i].longitude !== 0) {
-           coordinates.push({
-             lat: logRecords[i].latitude,
-             lon: logRecords[i].longitude,
-             value: 1
-           });
-           bounds.push(new L.LatLng(logRecords[i].latitude, logRecords[i].longitude));
+           "typeName": "ExceptionEvent",
+           "search": {
+               "deviceSearch": {
+                   "id": deviceId
+               },
+               "ruleSearch": {
+                   "id": "a1wrQ3PBsTUuNVZ7cqjCjHA",
+                   "includeZoneStopRules": false
+               },
+               "fromDate": dateFrom,
+               "toDate": dateTo
          }
+       }, function(exception) {
+           for (var i = 0; i < exception.length; i++){
+               logRecord(exception[0]);
+           }
+       });
 
-       if (coordinates.length > 0) {
-         map.fitBounds(bounds);
-         heatMapLayer.setLatLngs(coordinates);
-       } else {
-         errorHandler('Not enough data to display');
-       }
-       toggleLoading(false);
+   console.log(8);
+
+   function logRecord(exception) {
+       api.call("Get", {
+           "typeName": "LogRecord",
+           "search": {
+               "fromDate": exception.activeFrom,
+               "toDate": exception.activeTo,
+               "deviceSearch": {
+                   "id": exception.device.id
+               }
+           }
+       }, logRecords => {
+           console.log(10);
+
+           let coordinates = [];
+           let bounds = [];
+
+           for (let i = 0; i < logRecords.length; i++) {
+             if (logRecords[i].latitude !== 0 || logRecords[i].longitude !== 0) {
+               coordinates.push({
+                 lat: logRecords[i].latitude,
+                 lon: logRecords[i].longitude,
+                 value: 1
+               });
+               bounds.push(new L.LatLng(logRecords[i].latitude, logRecords[i].longitude));
+             }
+           }
+   console.log("precious");
+
+           if (coordinates.length > 0) {
+             map.fitBounds(bounds);
+             heatMapLayer.setLatLngs(coordinates);
+           } else {
+             errorHandler('Not enough data');
+           }
+         toggleLoading(false);
+       }, error => {
+         errorHandler(error);
+         toggleLoading(false);
+       });
    }
-};
-
-
-
-
-    // api.call('Get', {
-    //   typeName: 'LogRecord',
-    //   resultsLimit: 10000,
-    //   search: {
-    //     deviceSearch: {
-    //       id: deviceId
-    //     },
-    //     fromDate: dateFrom,
-    //     toDate: dateTo
-    //   }
-    // }, logRecords => {
-    //   let coordinates = [];
-    //   let bounds = [];
-    //
-    //   for (let i = 0; i < logRecords.length; i++) {
-    //     if (logRecords[i].latitude !== 0 || logRecords[i].longitude !== 0) {
-    //       coordinates.push({
-    //         lat: logRecords[i].latitude,
-    //         lon: logRecords[i].longitude,
-    //         value: 1
-    //       });
-    //       bounds.push(new L.LatLng(logRecords[i].latitude, logRecords[i].longitude));
-    //     }
-    //   }
-    //
-    //   if (coordinates.length > 0) {
-    //     map.fitBounds(bounds);
-    //     heatMapLayer.setLatLngs(coordinates);
-    //   } else {
-    //     errorHandler('Not enough data to display');
-    //   }
-    //
-    //   toggleLoading(false);
-    // }, error => {
-    //   errorHandler(error);
-    //   toggleLoading(false);
-    // });
+   };
 
   /**
    * Intialize the user interface
@@ -175,7 +130,7 @@ geotab.addin.heatmap = () => {
     });
 
     L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/streets-v10/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZ2VvdGFiIiwiYSI6ImNpd2NlaW02MjAxc28yeW9idTR3dmRxdTMifQ.ZH0koA2g2YMMBOcx6EYbwQ').addTo(map);
-
+console.log(3);
     heatMapLayer = L.heatLayer({
       radius: {
         value: 24,
@@ -231,7 +186,7 @@ geotab.addin.heatmap = () => {
       displayHeatMap();
     });
   };
-
+console.log(2);
   /**
    * Sort named entities
    * @param {object} a - The left comparison named entity
@@ -262,21 +217,19 @@ geotab.addin.heatmap = () => {
           callback();
         });
       } else {
-        initializeInterface({ longitude: -93.1306, latitude: 44.9612 });
+        initializeInterface({ longitude: -93.10, latitude: 44.94});
         callback();
       }
 
     },
-    focus(freshApi, freshState) {
+    focus(freshApi) {
       api = freshApi;
-
       while (elVehicleSelect.firstChild) {
         elVehicleSelect.removeChild(elVehicleSelect.firstChild);
       }
 
       api.call('Get', {
         typeName: 'Device',
-        resultsLimit: 1000,
         search: {
           fromDate: new Date().toISOString(),
           'groups': [{'id': 'b27D5'}]
