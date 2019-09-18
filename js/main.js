@@ -85,22 +85,23 @@ geotab.addin.heatmap = () => {
                }
            }
        }, logRecords => {
-         let lat = (logRecords[0].latitude)
-         let lon = (logRecords[0].longitude)
-         let newLogs = (logRecords[0])
-         console.log(lat, lon)
+         var newLogs = (logRecords[0])
+         console.log(newLogs.latitude)
 
            let coordinates = [];
            let bounds = [];
 
            for (let i = 0; i < newLogs.length; i++) {
+             if (newLogs.latitude !== 0 || newLogs.longitude !== 0) {
                coordinates.push({
-                 lat: lat.latitude,
-                 lon: lon.longitude,
+                 lat: newLogs.latitude,
+                 lon: newLogs.longitude,
                  value: 1
-                 console.log(coordinates)
                });
-            bounds.push(new L.LatLng(lat.latitude, lon.longitude));
+               bounds.push(new L.LatLng(newLogs.latitude, newLogs.longitude));
+               console.log(bounds)
+               console.log(coordinates)
+             }
            }
 
            if (coordinates.length > 0) {
