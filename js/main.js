@@ -70,11 +70,9 @@ geotab.addin.heatmap = () => {
          }
        }, function(exception) {
            for (var i = 0; i < exception.length; i++){
-               logRecord(exception[0]);
+               logRecord(exception[i]);
            }
        });
-
-   console.log(8);
 
    function logRecord(exception) {
        api.call("Get", {
@@ -102,7 +100,6 @@ geotab.addin.heatmap = () => {
                bounds.push(new L.LatLng(logRecords[i].latitude, logRecords[i].longitude));
              }
            }
-   console.log("precious");
 
            if (coordinates.length > 0) {
              map.fitBounds(bounds);
