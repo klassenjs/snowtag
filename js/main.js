@@ -99,11 +99,10 @@ geotab.addin.heatmap = () => {
                  value: 1
                });
                bounds.push(new L.LatLng(newLogs.latitude, newLogs.longitude));
-               console.log(bounds)
-               console.log(coordinates)
              }
            }
-
+           console.log(bounds)
+           console.log(coordinates)
            if (coordinates.length > 0) {
              map.fitBounds(bounds);
              heatMapLayer.setLatLngs(coordinates);
