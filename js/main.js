@@ -97,7 +97,7 @@ geotab.addin.heatmap = () => {
                coordinates.push({
                  lat: lat.latitude,
                  lon: lon.longitude,
-                 value: 1,
+                 value: 1
                  console.log(coordinates)
                });
             bounds.push(new L.LatLng(lat.latitude, lon.longitude));
