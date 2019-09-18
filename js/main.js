@@ -55,114 +55,44 @@ geotab.addin.heatmap = () => {
     let dateFrom = new Date(fromValue).toISOString();
     let dateTo = new Date(toValue).toISOString();
 
-    mainFunction(one, userScreen, heatmap);
+    api.call('Get', {
+      typeName: 'LogRecord',
+      resultsLimit: 10000,
+      search: {
+        deviceSearch: {
+          id: deviceId
+        },
+        fromDate: dateFrom,
+        toDate: dateTo
+      }
+    }, logRecords => {
+      let coordinates = [];
+      let bounds = [];
 
-    function mainFunction(callback1, callback2, callback3){
-          api.call("Get", {
-            "typeName": "ExceptionEvent",
-            "search": {
-                "deviceSearch": {
-                    "id": deviceId
-                },
-                "ruleSearch": {
-                    "id": "a1wrQ3PBsTUuNVZ7cqjCjHA",
-                  "includeZoneStopRules": false
-                },
-                "fromDate": dateFrom,
-                "toDate": dateTo
-          }
-        }, function(exception) {
-        for (var i = 0; i < exception.length; i++){
-            if (exception[i].length !== 0){
-            one(exception[i]);
-            userScreen(exception[i]);
-        } else {
-            return console.error("No results");
+      for (let i = 0; i < logRecords.length; i++) {
+        if (logRecords[i].latitude !== 0 || logRecords[i].longitude !== 0) {
+          coordinates.push({
+            lat: logRecords[i].latitude,
+            lon: logRecords[i].longitude,
+            value: 1
+          });
+          bounds.push(new L.LatLng(logRecords[i].latitude, logRecords[i].longitude));
         }
-    }
-        });
-    }
+      }
 
-    function one(a){
-    api.call("Get", {
-        "typeName": "LogRecord",
-        "search": {
-            "fromDate": a.activeFrom,
-            "toDate": a.activeTo,
-            "deviceSearch": {
-                "id": a.device.id
-            }
-        }
-    }, function(exception) {
-        heatmap(exception[0]);
+      if (coordinates.length > 0) {
+        map.fitBounds(bounds);
+        heatMapLayer.setLatLngs(coordinates);
+      } else {
+        errorHandler('Not enough data to display');
+      }
+
+      toggleLoading(false);
+    }, error => {
+      errorHandler(error);
+      toggleLoading(false);
     });
-}
-
-function userScreen(exception) {
-    api.call("Get", {
-        "typeName": "LogRecord",
-        "search": {
-            "fromDate": exception.activeFrom,
-            "toDate": exception.activeTo,
-            "deviceSearch": {
-                "id": exception.device.id
-            }
-        }
-    }, function(LogRecord) {
-        api.call("GetAddresses", {
-            "coordinates": [{
-                "x": LogRecord[0].longitude,
-                "y": LogRecord[0].latitude
-            }],
-            "movingAddreses": false,
-            "hosAddresses": false
-        }, function(Address) {
-            api.call("Get", {
-                "typeName": "Device",
-                "search": {
-                    "id": exception.device.id
-                }
-            }, function(Device) {
-                        api.call("Get", {
-                            "typeName": "Rule",
-                            "search": {
-                                "id": exception.rule.id
-                            }
-                        }, function(Rule) {
-                            console.log(Device[0].name + " was at : " + Address[0].formattedAddress +
-                            ", (coordinates: " + LogRecord[0].latitude + ", " + LogRecord[0].longitude +
-                            ") and triggered the " + Rule[0].name + " rule");
-                        });
-                    }
-                );
-        });
-    });
-}
-
-
-function heatmap(logRecords) {
-           let coordinates = [];
-           let bounds = [];
-
-           for (let i = 0; i < logRecords.length; i++) {
-             if (logRecords[i].latitude !== 0 || logRecords[i].longitude !== 0) {
-               coordinates.push({
-                 lat: logRecords[i].latitude,
-                 lon: logRecords[i].longitude,
-                 value: 1
-               });
-               bounds.push(new L.LatLng(logRecords[i].latitude, logRecords[i].longitude));
-             }
-           }
-
-           if (coordinates.length > 0) {
-             map.fitBounds(bounds);
-             heatMapLayer.setLatLngs(coordinates);
-           } else {
-             errorHandler('Not enough data');
-           }
-         toggleLoading(false);
-       }
+  };
    };
 
   /**
