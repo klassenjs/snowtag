@@ -14,6 +14,7 @@ geotab.addin.heatmap = () => {
   let elDateToInput;
   let elError;
   let elLoading;
+
   /**
    * Display error message
    * @param {string} message - The error message.
@@ -39,7 +40,7 @@ geotab.addin.heatmap = () => {
   /**
    * Displays the heatmap of a vehicle location history
    */
-  let displayHeatMap = function () {
+  let displayHeatMap = () => {
     let deviceId = elVehicleSelect.value;
     let fromValue = elDateFromInput.value;
     let toValue = elDateToInput.value;
@@ -93,7 +94,6 @@ geotab.addin.heatmap = () => {
       toggleLoading(false);
     });
   };
-   };
 
   /**
    * Intialize the user interface
@@ -107,7 +107,7 @@ geotab.addin.heatmap = () => {
     });
 
     L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/streets-v10/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZ2VvdGFiIiwiYSI6ImNpd2NlaW02MjAxc28yeW9idTR3dmRxdTMifQ.ZH0koA2g2YMMBOcx6EYbwQ').addTo(map);
-console.log(3);
+
     heatMapLayer = L.heatLayer({
       radius: {
         value: 24,
@@ -163,7 +163,7 @@ console.log(3);
       displayHeatMap();
     });
   };
-console.log(2);
+
   /**
    * Sort named entities
    * @param {object} a - The left comparison named entity
@@ -194,19 +194,21 @@ console.log(2);
           callback();
         });
       } else {
-        initializeInterface({ longitude: -93.10, latitude: 44.94});
+        initializeInterface({ longitude: -79.709441, latitude: 43.434497 });
         callback();
       }
 
     },
-    focus(freshApi) {
+    focus(freshApi, freshState) {
       api = freshApi;
+
       while (elVehicleSelect.firstChild) {
         elVehicleSelect.removeChild(elVehicleSelect.firstChild);
       }
 
       api.call('Get', {
         typeName: 'Device',
+        resultsLimit: 1000,
         search: {
           fromDate: new Date().toISOString(),
           'groups': [{'id': 'b27D5'}]
