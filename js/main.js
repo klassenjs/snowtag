@@ -162,10 +162,7 @@ function heatmap(logRecords) {
              errorHandler('Not enough data');
            }
          toggleLoading(false);
-       }, error => {
-         errorHandler(error);
-         toggleLoading(false);
-       };
+       }
    };
 
   /**
