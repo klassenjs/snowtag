@@ -55,50 +55,52 @@ geotab.addin.heatmap = () => {
     let dateFrom = new Date(fromValue).toISOString();
     let dateTo = new Date(toValue).toISOString();
 
-    api.call("Get", {
-           "typeName": "ExceptionEvent",
-           "search": {
-               "deviceSearch": {
-                   "id": deviceId
-               },
-               "ruleSearch": {
-                   "id": "a1wrQ3PBsTUuNVZ7cqjCjHA",
-                   "includeZoneStopRules": false
-               },
-               "fromDate": dateFrom,
-               "toDate": dateTo
-         }
-       }, function(exception) {
-           for (var i = 0; i < exception.length; i++){
-               logRecord(exception[i]);
-           }
-       });
+    var calls = [
+    ["Get", {
+            "typeName": "ExceptionEvent",
+            "search": {
+                "deviceSearch": {
+                    "id": "b2B"
+                },
+                "ruleSearch": {
+                  "id": "a1wrQ3PBsTUuNVZ7cqjCjHA",
+                  "includeZoneStopRules": false
+                },
+                "fromDate": "2019-04-07T18:50:00.000Z",
+                "toDate": "2019-05-07T18:59:00.000Z"
+          }
+        }]
 
-   function logRecord(exception) {
-       api.call("Get", {
-           "typeName": "LogRecord",
-           "search": {
-               "fromDate": exception.activeFrom,
-               "toDate": exception.activeTo,
-               "deviceSearch": {
-                   "id": exception.device.id
-               }
-           }
-       }, logRecords => {
-         var newLogs = (logRecords[0])
-         console.log(newLogs)
+    ];
+
+    api.multiCall(calls, function (results) {
+        var exception = results[0];
+
+        console.log("hi" ,exception)
+        api.call("Get", {
+            "typeName": "LogRecord",
+            "search": {
+                "fromDate": exception[0].activeFrom,
+                "toDate": exception[0].activeTo,
+                "deviceSearch": {
+                    "id": exception[0].device.id
+                }
+            }
+        }, logRecords => {
 
            let coordinates = [];
            let bounds = [];
 
-             if (newLogs.latitude !== 0 || newLogs.longitude !== 0) {
+           for (let i = 0; i < logRecords.length; i++) {
+             if (logRecords[i].latitude !== 0 || logRecords[i].longitude !== 0) {
                coordinates.push({
-                 lat: newLogs.latitude,
-                 lon: newLogs.longitude,
+                 lat: logRecords[i].latitude,
+                 lon: logRecords[i].longitude,
                  value: 1
                });
-               bounds.push(new L.LatLng(newLogs.latitude, newLogs.longitude));
+               bounds.push((logRecords[i].latitude, logRecords[i].longitude));
              }
+              }
              console.log(bounds)
              console.log(coordinates)
 
@@ -113,7 +115,7 @@ geotab.addin.heatmap = () => {
          errorHandler(error);
          toggleLoading(false);
        });
-   }
+   })
    };
 
   /**
