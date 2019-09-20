@@ -69,9 +69,28 @@ geotab.addin.heatmap = () => {
                "toDate": dateTo
          }
        }, function(exception) {
+      
+           let coordinates = [];
+           let bounds = [];
+
            for (var i = 0; i < exception.length; i++){
-               logRecord(exception[i]);
+               let l = logRecord(exception[i]);
+               coordinates.push({
+                 lat: l.latitude,
+                 lon: l.longitude,
+                 value: 1
+               });
+               bounds.push(new L.LatLng(l.latitude, l.longitude));
            }
+           console.log(coordinates)
+
+           if (coordinates.length > 0) {
+             map.fitBounds(bounds);
+             heatMapLayer.setLatLngs(coordinates);
+           } else {
+             errorHandler('Not enough data');
+           }
+           toggleLoading(false);
        });
 
    function logRecord(exception) {
@@ -85,32 +104,12 @@ geotab.addin.heatmap = () => {
                }
            }
        }, logRecords => {
-         console.log(logRecords)
-         // console.log(newLogs.latitude)
-         // console.log(newLogs.longitude)
-
-           let coordinates = [];
-           let bounds = [];
-
+           console.log(logRecords)
            for (let i = 0; i < logRecords.length; i++) {
              if (logRecords[i].latitude !== 0 || logRecords[i].longitude !== 0) {
-               coordinates.push({
-                 lat: logRecords[i].latitude,
-                 lon: logRecords[i].longitude,
-                 value: 1
-               });
-               bounds.push(new L.LatLng(logRecords[i].latitude, logRecords[i].longitude));
+               return logRecords[i];
              }
            }
-             console.log(coordinates)
-
-           if (coordinates.length > 0) {
-             map.fitBounds(bounds);
-             heatMapLayer.setLatLngs(coordinates);
-           } else {
-             errorHandler('Not enough data');
-           }
-         toggleLoading(false);
        }, error => {
          errorHandler(error);
          toggleLoading(false);
